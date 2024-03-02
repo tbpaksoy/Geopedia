@@ -2,6 +2,17 @@ import xml.etree.ElementTree as ET
 import json
 
 
+def Convert(value, type: str):
+    temp = str(value)
+    match type:
+        case "integer" | "int" | "integral":
+            return int(temp.replace(",", "").replace(" ", ""))
+        case "float" | "real":
+            return float(temp.replace(",", "").replace(" ", ""))
+        case "string" | "str":
+            return temp
+
+
 def GetRelationalData(name: str, lang: str = None) -> dict:
 
     # Get data from .xml
@@ -50,13 +61,14 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
     j = json.load(
         open("Data\\"+root.find("Data").attrib["source"], encoding="utf-8"))
 
-    internalData = {}
+    filteredData = {}
 
     # If there are no filters, get all the data
     # Filtre yoksa, tüm veriyi al
     if len(filters) == 0:
         for entry in j:
-            internalData[entry["name"]] = entry
+            filteredData[entry[root.find("Data").attrib["by"]]] = entry
+
     # Filter the data
     # Veriyi filtrele
     else:
@@ -64,15 +76,35 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
             for key in filters[filter]:
                 for entry in j:
                     if entry[filter] == key:
-                        internalData[key] = entry
+                        filteredData[key] = entry
                         break
+
+    # Get the data types to get
+    # Alınacak veri tiplerini al
+    toGet = [g.attrib["key"] for g in root.find("Data").findall("Get")]
+    convert = {g.attrib["key"]: g.attrib["convert"]
+               for g in root.find("Data").findall("Get") if "convert" in g.attrib}
+    # If there are data types to get, filter the data
+    # Alınacak veri tipleri varsa, veriyi filtrele
+    if len(toGet) > 0:
+        for entry in filteredData:
+            for key in list(filteredData[entry]):
+                if key not in toGet:
+                    del filteredData[entry][key]
+                if key in convert:
+                    filteredData[entry][key] = Convert(
+                        filteredData[entry][key], convert[key])
 
     # Add the filtered data to the dictionary
     # Filtrelenmiş veriyi sözlüğe ekle
-    data["Data"] = internalData
+    data["Data"] = filteredData
+
+    representation = {
+        "Colors": [[float(u) / 255.0 for u in t.text.split(" ")] for t in root.find("Representation").findall("Color")],
+        "Value": root.find("Representation").attrib["value"],
+        "Map": root.find("Representation").attrib["map"]
+    }
+
+    data["Representation"] = representation
 
     return data
-
-
-dic = GetRelationalData("Germany Poplulation 2022", "tr")
-print(dic)

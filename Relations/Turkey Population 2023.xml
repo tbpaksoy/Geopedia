@@ -12,21 +12,12 @@
     <Provider>
         Türkiye İstatistik Kurumu
     </Provider>
-    <Data source="Turkey Population.json">
-        <Filter key="name">
-            Adana
-            İstanbul
-            İzmir
-            Ankara
-            Antalya
-            Bursa
-            Elazığ
-            Diyarbakır
-        </Filter>
+    <Data source="Turkey Population.json" by="name">
+        <Get key="name" />
+        <Get key="2023" convert="integer" />
     </Data>
     <Representation value="2023" map="Turkey.geojson">
-        <Color>205 221 221</Color>
-        <Color>87 74 226</Color>
-        <Link from="name" to="shapeName" value="2023" />
+        <Color>255 255 255</Color>
+        <Color>227 10 23</Color>
     </Representation>
 </Relation>

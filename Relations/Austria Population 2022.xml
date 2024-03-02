@@ -1,0 +1,23 @@
+<Relation>
+    <Name default="en">
+        <Text language="en">2022 Population of Austria</Text>
+        <Text language="tr">Avusturya'nın 2022 Nüfusu</Text>
+        <Text language="de">die Bevölkerung 2022 von Österrich </Text>
+    </Name>
+    <Description default="en">
+        <Text language="en">the Population of Austria by the states in 2022</Text>
+        <Text language="tr">Avusturya'nın 2022 yılında eyaletlere göre nüfusu</Text>
+        <Text language="de">die Bevölkerung von Österrich nach den Bündeslandern im Jahr 2022</Text>
+    </Description>
+    <Provider>
+        Statistik Austria
+    </Provider>
+    <Data source="Austria Population.json" by="Bundesland">
+        <Get key="Bundesland" />
+        <Get key="2022" />
+    </Data>
+    <Representation value="2022" map="Austria.geojson">
+        <Color>255 255 255</Color>
+        <Color>239 51 64</Color>
+    </Representation>
+</Relation>
