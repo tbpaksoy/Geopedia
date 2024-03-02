@@ -1,0 +1,29 @@
+<Relation>
+    <Name default="en">
+        <Text language="en">2022 Population of Germany</Text>
+        <Text language="tr">Almanya'nın 2022 Nüfusu</Text>
+        <Text language="de">die Bevölkerung 2022 von Deutschland </Text>
+    </Name>
+    <Description default="en">
+        <Text language="en">the Population of Germany by the states in 2022</Text>
+        <Text language="tr">Almanya'nın 2022 yılında eyaletlere göre nüfusu</Text>
+        <Text language="de">die Bevölkerung von Deutschland nach den Ländern im Jahr 2022</Text>
+    </Description>
+    <Provider>
+        Statistisches Bundesamt
+    </Provider>
+    <Data source="Germany Population.json">
+        <Filter key="Länder">
+            Schleswig-Holstein
+            Nordrhein-Westfalen
+            Baden-Württemberg
+            Brandenburg
+            Hamburg
+        </Filter>
+    </Data>
+    <Representation value="2022-12-31" map="Germany.geojson">
+        <Color>205 221 221</Color>
+        <Color>87 74 226</Color>
+        <Link from="name" to="shapeName" value="2022-12-31" />
+    </Representation>
+</Relation>

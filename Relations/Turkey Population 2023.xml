@@ -1,0 +1,32 @@
+<Relation>
+    <Name default="en">
+        <Text language="en">2023 Population of Turkey</Text>
+        <Text language="tr">Türkiye'nin 2023 Nüfusu</Text>
+        <Text language="de">die Bevölkerung 2023 der Türkei </Text>
+    </Name>
+    <Description default="en">
+        <Text language="en">the Population of Turkey by the provinces in 2023</Text>
+        <Text language="tr">Türkiye'nin 2023 yılında illere göre nüfusu</Text>
+        <Text language="de">die Bevölkerung der Türkei nach den Provinzen im Jahr 2023</Text>
+    </Description>
+    <Provider>
+        Türkiye İstatistik Kurumu
+    </Provider>
+    <Data source="Turkey Population.json">
+        <Filter key="name">
+            Adana
+            İstanbul
+            İzmir
+            Ankara
+            Antalya
+            Bursa
+            Elazığ
+            Diyarbakır
+        </Filter>
+    </Data>
+    <Representation value="2023" map="Turkey.geojson">
+        <Color>205 221 221</Color>
+        <Color>87 74 226</Color>
+        <Link from="name" to="shapeName" value="2023" />
+    </Representation>
+</Relation>
