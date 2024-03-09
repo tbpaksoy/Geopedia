@@ -1,0 +1,707 @@
+[
+    {
+        "YEAR": 2022,
+        "AREA": "Hokkaido",
+        "Total": "5,140,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Aomori",
+        "Total": "1,204,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Iwate",
+        "Total": "1,181,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Miyagi",
+        "Total": "2,280,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Akita",
+        "Total": 930
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Yamagata",
+        "Total": "1,041,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Fukushima",
+        "Total": "1,790,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Ibaraki",
+        "Total": "2,840,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Tochigi",
+        "Total": "1,909,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Gumma",
+        "Total": "1,913,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Saitama",
+        "Total": "7,337,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Chiba",
+        "Total": "6,266,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Tokyo",
+        "Total": "14,038,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Kanagawa",
+        "Total": "9,232,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Niigata",
+        "Total": "2,153,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Toyama",
+        "Total": "1,017,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Ishikawa",
+        "Total": "1,118,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Fukui",
+        "Total": 753
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Yamanashi",
+        "Total": 802
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Nagano",
+        "Total": "2,020,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Gifu",
+        "Total": "1,946,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Shizuoka",
+        "Total": "3,582,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Aichi",
+        "Total": "7,495,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Mie",
+        "Total": "1,742,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Shiga",
+        "Total": "1,409,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Kyoto",
+        "Total": "2,550,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Osaka",
+        "Total": "8,782,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Hyogo",
+        "Total": "5,402,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Nara",
+        "Total": "1,306,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Wakayama",
+        "Total": 903
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Tottori",
+        "Total": 544
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Shimane",
+        "Total": 658
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Okayama",
+        "Total": "1,862,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Hiroshima",
+        "Total": "2,760,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Yamaguchi",
+        "Total": "1,313,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Tokushima",
+        "Total": 704
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Kagawa",
+        "Total": 934
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Ehime",
+        "Total": "1,306,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Kochi",
+        "Total": 676
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Fukuoka",
+        "Total": "5,116,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Saga",
+        "Total": 801
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Nagasaki",
+        "Total": "1,283,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Kumamoto",
+        "Total": "1,718,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Oita",
+        "Total": "1,107,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Miyazaki",
+        "Total": "1,052,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Kagoshima",
+        "Total": "1,563,000"
+    },
+    {
+        "YEAR": 2022,
+        "AREA": "Okinawa",
+        "Total": "1,468,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Hokkaido",
+        "Total": "5,183,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Aomori",
+        "Total": "1,221,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Iwate",
+        "Total": "1,196,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Miyagi",
+        "Total": "2,290,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Akita",
+        "Total": 945
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Yamagata",
+        "Total": "1,055,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Fukushima",
+        "Total": "1,812,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Ibaraki",
+        "Total": "2,852,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Tochigi",
+        "Total": "1,921,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Gumma",
+        "Total": "1,927,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Saitama",
+        "Total": "7,340,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Chiba",
+        "Total": "6,275,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Tokyo",
+        "Total": "14,010,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Kanagawa",
+        "Total": "9,236,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Niigata",
+        "Total": "2,177,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Toyama",
+        "Total": "1,025,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Ishikawa",
+        "Total": "1,125,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Fukui",
+        "Total": 760
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Yamanashi",
+        "Total": 805
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Nagano",
+        "Total": "2,033,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Gifu",
+        "Total": "1,961,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Shizuoka",
+        "Total": "3,608,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Aichi",
+        "Total": "7,517,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Mie",
+        "Total": "1,756,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Shiga",
+        "Total": "1,411,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Kyoto",
+        "Total": "2,561,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Osaka",
+        "Total": "8,806,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Hyogo",
+        "Total": "5,432,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Nara",
+        "Total": "1,315,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Wakayama",
+        "Total": 914
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Tottori",
+        "Total": 549
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Shimane",
+        "Total": 665
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Okayama",
+        "Total": "1,876,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Hiroshima",
+        "Total": "2,780,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Yamaguchi",
+        "Total": "1,328,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Tokushima",
+        "Total": 712
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Kagawa",
+        "Total": 942
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Ehime",
+        "Total": "1,321,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Kochi",
+        "Total": 684
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Fukuoka",
+        "Total": "5,124,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Saga",
+        "Total": 806
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Nagasaki",
+        "Total": "1,297,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Kumamoto",
+        "Total": "1,728,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Oita",
+        "Total": "1,114,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Miyazaki",
+        "Total": "1,061,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Kagoshima",
+        "Total": "1,576,000"
+    },
+    {
+        "YEAR": 2021,
+        "AREA": "Okinawa",
+        "Total": "1,468,000"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Hokkaido",
+        "Total": "5,224,614"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Aomori",
+        "Total": "1,237,984"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Iwate",
+        "Total": "1,210,534"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Miyagi",
+        "Total": "2,301,996"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Akita",
+        "Total": "959,502"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Yamagata",
+        "Total": "1,068,027"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Fukushima",
+        "Total": "1,833,152"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Ibaraki",
+        "Total": "2,867,009"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Tochigi",
+        "Total": "1,933,146"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Gumma",
+        "Total": "1,939,110"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Saitama",
+        "Total": "7,344,765"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Chiba",
+        "Total": "6,284,480"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Tokyo",
+        "Total": "14,047,594"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Kanagawa",
+        "Total": "9,237,337"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Niigata",
+        "Total": "2,201,272"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Toyama",
+        "Total": "1,034,814"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Ishikawa",
+        "Total": "1,132,526"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Fukui",
+        "Total": "766,863"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Yamanashi",
+        "Total": "809,974"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Nagano",
+        "Total": "2,048,011"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Gifu",
+        "Total": "1,978,742"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Shizuoka",
+        "Total": "3,633,202"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Aichi",
+        "Total": "7,542,415"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Mie",
+        "Total": "1,770,254"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Shiga",
+        "Total": "1,413,610"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Kyoto",
+        "Total": "2,578,087"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Osaka",
+        "Total": "8,837,685"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Hyogo",
+        "Total": "5,465,002"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Nara",
+        "Total": "1,324,473"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Wakayama",
+        "Total": "922,584"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Tottori",
+        "Total": "553,407"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Shimane",
+        "Total": "671,126"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Okayama",
+        "Total": "1,888,432"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Hiroshima",
+        "Total": "2,799,702"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Yamaguchi",
+        "Total": "1,342,059"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Tokushima",
+        "Total": "719,559"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Kagawa",
+        "Total": "950,244"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Ehime",
+        "Total": "1,334,841"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Kochi",
+        "Total": "691,527"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Fukuoka",
+        "Total": "5,135,214"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Saga",
+        "Total": "811,442"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Nagasaki",
+        "Total": "1,312,317"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Kumamoto",
+        "Total": "1,738,301"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Oita",
+        "Total": "1,123,852"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Miyazaki",
+        "Total": "1,069,576"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Kagoshima",
+        "Total": "1,588,256"
+    },
+    {
+        "YEAR": 2020,
+        "AREA": "Okinawa",
+        "Total": "1,467,480"
+    }
+]

@@ -1,0 +1,128 @@
+[
+  {
+    "Territory": "Piemonte",
+    "male": 2072771,
+    "female": 2178580,
+    "total": 4251351
+  },
+  {
+    "Territory": "Valle d'Aosta",
+    "male": 60353,
+    "female": 62777,
+    "total": 123130
+  },
+  {
+    "Territory": "Liguria",
+    "male": 726267,
+    "female": 781369,
+    "total": 1507636
+  },
+  {
+    "Territory": "Lombardia",
+    "male": 4900520,
+    "female": 5075989,
+    "total": 9976509
+  },
+  {
+    "Territory": "Trentino-Alto Adige",
+    "male": 532429,
+    "female": 544714,
+    "total": 1077143
+  },
+  {
+    "Territory": "Provincia Autonoma Bolzano / Bozen",
+    "male": 264748,
+    "female": 269399,
+    "total": 534147
+  },
+  {
+    "Territory": "Veneto",
+    "male": 2382754,
+    "female": 2466799,
+    "total": 4849553
+  },
+  {
+    "Territory": "Friuli Venezia Giulia",
+    "male": 582902,
+    "female": 611346,
+    "total": 1194248
+  },
+  {
+    "Territory": "Emilia-Romagna",
+    "male": 2171006,
+    "female": 2266572,
+    "total": 4437578
+  },
+  {
+    "Territory": "Toscana",
+    "male": 1776898,
+    "female": 1885083,
+    "total": 3661981
+  },
+  {
+    "Territory": "Umbria",
+    "male": 414273,
+    "female": 442134,
+    "total": 856407
+  },
+  {
+    "Territory": "Marche",
+    "male": 724914,
+    "female": 759384,
+    "total": 1484298
+  },
+  {
+    "Territory": "Lazio",
+    "male": 2771086,
+    "female": 2949450,
+    "total": 5720536
+  },
+  {
+    "Territory": "Abruzzo",
+    "male": 622679,
+    "female": 649948,
+    "total": 1272627
+  },
+  {
+    "Territory": "Molise",
+    "male": 143551,
+    "female": 147085,
+    "total": 290636
+  },
+  {
+    "Territory": "Campania",
+    "male": 2739246,
+    "female": 2870290,
+    "total": 5609536
+  },
+  {
+    "Territory": "Puglia",
+    "male": 1904137,
+    "female": 2003546,
+    "total": 3907683
+  },
+  {
+    "Territory": "Basilicata",
+    "male": 265185,
+    "female": 272392,
+    "total": 537577
+  },
+  {
+    "Territory": "Calabria",
+    "male": 904219,
+    "female": 942391,
+    "total": 1846610
+  },
+  {
+    "Territory": "Sicilia",
+    "male": 2345397,
+    "female": 2468619,
+    "total": 4814016
+  },
+  {
+    "Territory": "Sardegna",
+    "male": 774245,
+    "female": 803901,
+    "total": 1578146
+  }
+]

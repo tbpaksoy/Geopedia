@@ -29,6 +29,7 @@ def BuildADM1(country: str, id: int | str | list) -> dict:
             for i in id:
                 match i:
                     case int():
+
                         query.append(features[i])
                     case str():
                         for feature in features:

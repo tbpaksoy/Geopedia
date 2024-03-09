@@ -6,18 +6,26 @@ def Convert(value, type: str):
     temp = str(value)
     match type:
         case "integer" | "int" | "integral":
-            return int(temp.replace(",", "").replace(" ", ""))
+            try:
+                return int(temp.replace(",", "").replace(" ", ""))
+            except:
+                return 0
         case "float" | "real":
-            return float(temp.replace(",", "").replace(" ", ""))
+            try:
+                return float(temp.replace(",", "").replace(" ", ""))
+            except:
+                return 0.0
         case "string" | "str":
             return temp
 
 
 def GetRelationalData(name: str, lang: str = None) -> dict:
+    if ".xml" not in name:
+        name += ".xml"
 
     # Get data from .xml
     # .xml dosyasından veri al
-    tree = ET.parse(open("Relations\\"+name+".xml", encoding="utf-8"))
+    tree = ET.parse(open("Relations\\"+name, encoding="utf-8"))
     root = tree.getroot()
 
     # Create a dictionary to store the data
@@ -79,11 +87,25 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
                         filteredData[key] = entry
                         break
 
+    excluders = {e.attrib["key"]:
+                 [t.replace(" ", "") for t in e.text.splitlines()
+                  if not str.isspace(t) and t != ""]
+                 for e in root.find("Data").findall(
+        "Exclude") if "key" in e.attrib}
+
+    for ex_0 in excluders:
+        for ex_1 in excluders[ex_0]:
+            for datum in list(filteredData.values()):
+                if datum[ex_0] in ex_1:
+                    del filteredData[ex_1]
+
     # Get the data types to get
     # Alınacak veri tiplerini al
     toGet = [g.attrib["key"] for g in root.find("Data").findall("Get")]
     convert = {g.attrib["key"]: g.attrib["convert"]
                for g in root.find("Data").findall("Get") if "convert" in g.attrib}
+    wanted = root.find("Representation").attrib["value"]
+    realData = []
     # If there are data types to get, filter the data
     # Alınacak veri tipleri varsa, veriyi filtrele
     if len(toGet) > 0:
@@ -91,18 +113,23 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
             for key in list(filteredData[entry]):
                 if key not in toGet:
                     del filteredData[entry][key]
+                    continue
                 if key in convert:
                     filteredData[entry][key] = Convert(
                         filteredData[entry][key], convert[key])
+                if key == wanted:
+                    realData.append(filteredData[entry][key])
+
+    (realData)
 
     # Add the filtered data to the dictionary
     # Filtrelenmiş veriyi sözlüğe ekle
     data["Data"] = filteredData
-
     representation = {
         "Colors": [[float(u) / 255.0 for u in t.text.split(" ")] for t in root.find("Representation").findall("Color")],
         "Value": root.find("Representation").attrib["value"],
-        "Map": root.find("Representation").attrib["map"]
+        "Map": root.find("Representation").attrib["map"],
+        "Interval": (min(realData), max(realData))
     }
 
     data["Representation"] = representation

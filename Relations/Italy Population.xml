@@ -1,0 +1,23 @@
+<Relation>
+    <Name default="en">
+        <Text language="en">2023 Population of Italy</Text>
+        <Text language="tr">İtalya'nın 2022 Nüfusu</Text>
+        <Text language="de">die Bevölkerung 2022 von Italien </Text>
+    </Name>
+    <Description default="en">
+        <Text language="en">the Population of Turkey by the regions in 2022</Text>
+        <Text language="tr">İtalya'nın 2023 yılında bögelere göre nüfusu</Text>
+        <Text language="de">die Bevölkerung der Türkei nach den Regionen im Jahr 2022</Text>
+    </Description>
+    <Provider>
+        Istituto Nazionale di Statistica
+    </Provider>
+    <Data source="Italy Population.json" by="Territory">
+        <Get key="Territory" />
+        <Get key="total" />
+    </Data>
+    <Representation value="total" map="Italy.geojson">
+        <Color>255 255 255</Color>
+        <Color>0 140 69</Color>
+    </Representation>
+</Relation>

@@ -1,0 +1,23 @@
+<Relation>
+    <Name default="en">
+        <Text language="en">2022 Population of Japan</Text>
+        <Text language="tr">Japonya'nın 2022 Nüfusu</Text>
+        <Text language="de">die Bevölkerung 2022 von Japan </Text>
+    </Name>
+    <Description default="en">
+        <Text language="en">the Population of Japan by the states in 2022</Text>
+        <Text language="tr">Japonya'nın 2022 yılında prefektörlüklere göre nüfusu</Text>
+        <Text language="de">die Bevölkerung von Japan nach den Präfekturen im Jahr 2022</Text>
+    </Description>
+    <Provider>
+        e-Stat (Government of Japan)
+    </Provider>
+    <Data source="Japan Population.json" by="AREA">
+        <Get key="AREA" />
+        <Get key="Total" convert="integer" />
+    </Data>
+    <Representation value="Total" map="Japan.geojson">
+        <Color>255 255 255</Color>
+        <Color>239 51 64</Color>
+    </Representation>
+</Relation>
