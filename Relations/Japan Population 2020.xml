@@ -16,7 +16,7 @@
         <Get key="AREA" />
         <Get key="Total" convert="integer" />
     </Data>
-    <Representation value="Total" map="Japan.geojson">
+    <Representation value="Total" map="Japan ADM1.geojson">
         <Color>255 255 255</Color>
         <Color>239 51 64</Color>
     </Representation>

@@ -1,5 +1,38 @@
 import xml.etree.ElementTree as ET
 import json
+import math
+
+# To perform operations
+# İşlemleri gerçekleştirmek için
+
+
+def Operate(a, b, operation: str):
+    result = None
+    try:
+        match operation:
+            case "add" | "addition" | "+":
+                result = a + b
+            case "subtract" | "subtraction" | "-":
+                result = a - b
+            case "multiply" | "multiplication" | "*" | "x":
+                result = a * b
+            case "divide" | "division" | "/" | "÷":
+                result = a / b
+            case "power" | "exponent" | "^":
+                result = a ** b
+            case "root" | "nthroot" | "√":
+                result = a ** (1 / b)
+            case "logarithm" | "log":
+                result = math.log(a, b)
+            case "modulus" | "mod" | "%":
+                result = a % b
+    except:
+        print("An error occurred while performing the operation.")
+    finally:
+        return result
+
+# To convert values to the desired type
+# Değerleri istenilen tipte çevirmek için
 
 
 def Convert(value, type: str):
@@ -17,6 +50,9 @@ def Convert(value, type: str):
                 return 0.0
         case "string" | "str":
             return temp
+
+# To get the data from the .xml file
+# .xml dosyasından veri almak için
 
 
 def GetRelationalData(name: str, lang: str = None) -> dict:

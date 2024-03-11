@@ -16,7 +16,7 @@
         <Get key="State/Territory" />
         <Get key="no.2022" />
     </Data>
-    <Representation value="no.2022" map="Australia.geojson">
+    <Representation value="no.2022" map="Australia ADM1.geojson">
         <Color>255 255 255</Color>
         <Color>0 0 139</Color>
     </Representation>

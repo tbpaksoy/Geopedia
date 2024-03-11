@@ -16,7 +16,7 @@
         <Get key="Länder" />
         <Get key="2022-12-31" />
     </Data>
-    <Representation value="2022-12-31" map="Germany.geojson">
+    <Representation value="2022-12-31" map="Germany ADM1.geojson">
         <Color>255 255 255</Color>
         <Color>0 0 0</Color>
     </Representation>

@@ -6,11 +6,11 @@ import trimesh as tm
 # İdari bölüm 1 verisini al
 
 
-def BuildADM1(country: str, id: int | str | list) -> dict:
+def BuildADM(country: str, id: int | str | list) -> dict:
 
     # Get data from .json
     # .json dosyasından veri al
-    data = json.load(open("Countries\\ADM1\\"+country +
+    data = json.load(open("Countries\\"+country +
                      ".geojson", encoding="utf-8"))
     # Get the features
     # Özellikleri al

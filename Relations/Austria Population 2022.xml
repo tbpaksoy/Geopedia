@@ -16,7 +16,7 @@
         <Get key="Bundesland" />
         <Get key="2022" />
     </Data>
-    <Representation value="2022" map="Austria.geojson">
+    <Representation value="2022" map="Austria ADM1.geojson">
         <Color>255 255 255</Color>
         <Color>239 51 64</Color>
     </Representation>

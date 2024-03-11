@@ -16,7 +16,7 @@
         <Get key="Territory" />
         <Get key="total" />
     </Data>
-    <Representation value="total" map="Italy.geojson">
+    <Representation value="total" map="Italy ADM2.geojson">
         <Color>255 255 255</Color>
         <Color>0 140 69</Color>
     </Representation>
