@@ -6,12 +6,14 @@ import trimesh as tm
 # İdari bölüm 1 verisini al
 
 
-def BuildADM(country: str, id: int | str | list) -> dict:
+def BuildADM(file: str, id: int | str | list | None = None) -> dict:
+
+    if not file.endswith(".geojson"):
+        file += ".geojson"
 
     # Get data from .json
     # .json dosyasından veri al
-    data = json.load(open("Countries\\"+country +
-                     ".geojson", encoding="utf-8"))
+    data = json.load(open("Countries\\"+file, encoding="utf-8"))
     # Get the features
     # Özellikleri al
     features = data["features"]
@@ -20,7 +22,6 @@ def BuildADM(country: str, id: int | str | list) -> dict:
     match id:
         case int():
             query.append(features[id])
-
         case str():
             for feature in features:
                 if feature["properties"]["shapeName"] == id:
@@ -35,7 +36,9 @@ def BuildADM(country: str, id: int | str | list) -> dict:
                         for feature in features:
                             if feature["properties"]["shapeName"] == i:
                                 query.append(feature)
-
+        case None:
+            for feature in features:
+                query.append(feature)
     # Create a dictionary to store the data
     # Veriyi saklamak için bir sözlük oluştur
     data = {}

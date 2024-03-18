@@ -1,0 +1,23 @@
+<Relation>
+    <Name default="en">
+        <Text language="en">2022 Population of Australia</Text>
+        <Text language="tr">Avustralya'nın 2022 Nüfusu</Text>
+        <Text language="de">die Bevölkerung 2022 von Australien </Text>
+    </Name>
+    <Description default="en">
+        <Text language="en">the Population of Australia by the states in 2022</Text>
+        <Text language="tr">Avustralya'nın 2022 yılında eyaletlere göre nüfusu</Text>
+        <Text language="de">die Bevölkerung von Australien nach den Bündeslandern im Jahr 2022</Text>
+    </Description>
+    <Provider>
+        Danmarks Statistik
+    </Provider>
+    <Data source="Denmark Population.json" by="Region">
+        <Get key="Region" />
+        <Get key="2024Q1" />
+    </Data>
+    <Representation value="2024Q1" map="Denmark ADM1.geojson">
+        <Color>255 255 255</Color>
+        <Color>201 8 42</Color>
+    </Representation>
+</Relation>
