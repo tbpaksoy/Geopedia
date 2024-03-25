@@ -6,6 +6,8 @@ import os
 import random
 import dearpygui.dearpygui as dpg
 from multiprocessing import Process
+import json
+
 
 # Create a plotter window
 # Bir çizim penceresi oluştur
@@ -16,7 +18,7 @@ ren_win: vtk.vtkRenderWindow = plotter.ren_win
 renderer: vtk.vtkRenderer = ren_win.GetRenderers().GetFirstRenderer()
 interactor = ren_win.GetInteractor()
 
-mode = "edit"
+mode = "view"
 
 match mode.lower():
     case "view":
@@ -173,29 +175,46 @@ match mode.lower():
 
         files = os.listdir("Relations")
 
-        for i in range(3):
-            chosen = random.choice(files)
-            del files[files.index(chosen)]
-            ShowData(chosen)
         # Show the plotter window
         # Çizim penceresini göster
         ren_win.MakeCurrent()
 
         plotter.show()
 
-    case "edit":
+    case "table edit":
+
+        # To keep the counter
+        # Sayaç tutmak için
         counter = 0
 
+        # To keep the selected file
+        # Seçilen dosyayı tutmak için
         files = os.listdir("Countries")
         selectedFile = ""
         selectedColor = ""
 
+        # To keep the save unit as
+        # Kaydedilecek birimi tutmak için
+        saveUnitAs = ""
+
+        # To keep the windows
+        # Pencereleri tutmak için
         mainWindow = None
         dataWindow = None
 
+        # To keep the input data
+        # Giriş verisini tutmak için
+        inputData: list[dict] = []
+
+        # To keep the keys
+        # Anahtarları tutmak için
         keyUI: dict[str: []] = {}
 
-        p2: Process
+        # Callbacks
+        # Geri çağrılar
+        def SetSaveUnitAs(sender):
+            global saveUnitAs
+            saveUnitAs = dpg.get_value(sender)
 
         def SelectFile(sender):
             global selectedFile
@@ -220,16 +239,23 @@ match mode.lower():
             global keyUI, counter
             key = counter
             keyUI[str(counter)] = [dpg.add_input_text(
-                label="key", parent=mainWindow), dpg.add_combo(label="type", items=["int", "float", "str"], parent=mainWindow),
+                label="key", parent=mainWindow), dpg.add_combo(label="type", items=["int", "float", "str", "date"], parent=mainWindow),
                 dpg.add_button(label="Remove", callback=lambda: RemoveKey(key), parent=mainWindow)]
             counter += 1
 
         def RunDataEditScreen():
-            global dataWindow
-            dataWindow = dpg.add_window(label="Data", width=500, height=500)
+            global dataWindow, inputData
+            dpg.delete_item(dataWindow)
+            inputData = []
+            pos = dpg.get_item_rect_size(mainWindow)
+            dataWindow = dpg.add_window(
+                label="Data", width=500, height=500, pos=(pos[0], 0), no_resize=True, no_move=True)
             units = Data.GetUnitNames(selectedFile)
+            valid = 0
             for unit in units:
-                dpg.add_text(default_value=unit, parent=dataWindow)
+                dpg.add_button(label=unit, parent=dataWindow)
+
+                temp = {saveUnitAs: unit}
                 for i in range(counter):
                     key = str(i)
                     if key in keyUI:
@@ -237,13 +263,22 @@ match mode.lower():
                         match dpg.get_value(keyUI[key][1]):
                             case "int":
                                 dpg.add_input_int(
-                                    label=name, parent=dataWindow)
+                                    label=name, parent=dataWindow, callback=InputData, user_data=(valid, name))
                             case "float":
                                 dpg.add_input_float(
-                                    label=name, parent=dataWindow)
+                                    label=name, parent=dataWindow, callback=InputData, user_data=(valid, name))
                             case "str":
                                 dpg.add_input_text(
-                                    label=name, parent=dataWindow)
+                                    label=name, parent=dataWindow, callback=InputData, user_data=(valid, name), multiline=True)
+                        temp[name] = None
+                valid += 1
+                inputData.append(temp)
+            dpg.add_button(label="Save", callback=lambda: SaveData(),
+                           parent=dataWindow, width=100, height=30)
+
+        def InputData(sender, app_data, user_data: tuple):
+            global inputData
+            inputData[user_data[0]][user_data[1]] = dpg.get_value(sender)
 
         def RemoveKey(index):
             global keyUI
@@ -256,24 +291,42 @@ match mode.lower():
             dpg.create_viewport()
             dpg.setup_dearpygui()
 
-            global mainWindow, files
+            with dpg.font_registry():
+                font = dpg.add_font("GUI/Font/FreeMono.ttf", 15)
+                dpg.add_font_range(32, 7935, parent=font)
+            dpg.bind_font(font)
+
+            global mainWindow, files, saveUnitAs
 
             mainWindow = dpg.add_window(
-                label="Geopedia", width=500, height=500)
+                label="Geopedia", width=500, height=500, no_resize=True, no_move=True)
 
-            dpg.add_combo(label="File", items=files, callback=SelectFile,
-                          parent=mainWindow, width=100)
+            dpg.add_text("Save unit as :", parent=mainWindow)
+            dpg.add_same_line(parent=mainWindow)
+            dpg.add_input_text(callback=SetSaveUnitAs,
+                               parent=mainWindow)
+
+            dpg.add_text("Select a file :", parent=mainWindow)
+            dpg.add_same_line(parent=mainWindow)
+            dpg.add_combo(items=files, callback=SelectFile,
+                          parent=mainWindow)
 
             dpg.add_button(label="Generate data", callback=lambda: RunDataEditScreen(),
                            parent=mainWindow, width=100, height=30)
-
+            dpg.add_same_line(parent=mainWindow)
             dpg.add_button(label="Add key", callback=lambda: AddKey(),
                            parent=mainWindow, width=100, height=30)
+
+            dpg.bind_font(font)
 
             dpg.show_viewport()
             dpg.start_dearpygui()
             dpg.destroy_context()
 
+        def SaveData():
+            global saveUnitAs, inputData
+            with open("Data/test.json", "w") as file:
+                json.dump(inputData, file)
         if __name__ == "__main__":
             p1 = Process(target=RunKeyEditScreen)
             p1.start()

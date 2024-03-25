@@ -1,0 +1,23 @@
+<Relation>
+    <Name default="en">
+        <Text language="en">2022 Population of South Korea</Text>
+        <Text language="tr">Güney Kore'nin 2022 Nüfusu</Text>
+        <Text language="de">die Bevölkerung 2022 von Südkorea </Text>
+    </Name>
+    <Description default="en">
+        <Text language="en">the Population of South Korea by the provinces in 2022</Text>
+        <Text language="tr">Güney Kore'nin 2022 yılında illere göre nüfusu</Text>
+        <Text language="de">die Bevölkerung von Südkorea nach den Provinzen im Jahr 2022</Text>
+    </Description>
+    <Provider>
+        KOSTAT
+    </Provider>
+    <Data source="South Korea Population.csv" by="Administrative divisions">
+        <Get key="Administrative divisions" />
+        <Get key="Total population (Person)" convert="int" />
+    </Data>
+    <Representation value="Total population (Person)" map="South Korea ADM1.geojson">
+        <Color>255 255 255</Color>
+        <Color>0 0 139</Color>
+    </Representation>
+</Relation>

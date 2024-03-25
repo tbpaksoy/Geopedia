@@ -1,0 +1,23 @@
+<Relation>
+    <Name default="en">
+        <Text language="en">2022 Population of Belgium</Text>
+        <Text language="tr">Belçika'nın 2022 Nüfusu</Text>
+        <Text language="de">die Bevölkerung 2022 von Belgien</Text>
+    </Name>
+    <Description default="en">
+        <Text language="en">the Population of Belgium by the states in 2022</Text>
+        <Text language="tr">Belçika'nın 2022 yılında eyaletlere göre nüfusu</Text>
+        <Text language="de">die Bevölkerung von Belgien nach den Bündeslandern im Jahr 2022</Text>
+    </Description>
+    <Provider>
+        STATBEL
+    </Provider>
+    <Data source="Belgium Population.csv" by="Place">
+        <Get key="Place" />
+        <Get key="Population 2022" convert="int" />
+    </Data>
+    <Representation value="Population 2022" map="Belgium ADM1.geojson">
+        <Color>255 255 255</Color>
+        <Color>253 218 36</Color>
+    </Representation>
+</Relation>

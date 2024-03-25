@@ -1,0 +1,47 @@
+[
+    {
+        "ASD": "Burgenland",
+        "Population": 4845649,
+        "GDP": null
+    },
+    {
+        "ASD": "K\u00e4rnten",
+        "Population": null,
+        "GDP": null
+    },
+    {
+        "ASD": "Nieder\u00f6sterreich",
+        "Population": null,
+        "GDP": null
+    },
+    {
+        "ASD": "Ober\u00f6sterreich",
+        "Population": null,
+        "GDP": null
+    },
+    {
+        "ASD": "Salzburg",
+        "Population": null,
+        "GDP": null
+    },
+    {
+        "ASD": "Steiermark",
+        "Population": null,
+        "GDP": null
+    },
+    {
+        "ASD": "Tirol",
+        "Population": null,
+        "GDP": null
+    },
+    {
+        "ASD": "Vorarlberg",
+        "Population": null,
+        "GDP": null
+    },
+    {
+        "ASD": "Wien",
+        "Population": 484564,
+        "GDP": 6544584
+    }
+]

@@ -18,6 +18,6 @@
     </Data>
     <Representation value="no.2022" map="Australia ADM1.geojson">
         <Color>255 255 255</Color>
-        <Color>0 0 139</Color>
+        <Color>0 71 160</Color>
     </Representation>
 </Relation>

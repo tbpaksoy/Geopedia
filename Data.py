@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 import json
+import csv
 import math
 
 # To perform operations
@@ -113,6 +114,8 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
     if ".xml" not in name:
         name += ".xml"
 
+    processedData = {}
+
     # Get data from .xml
     # .xml dosyasından veri al
     tree = ET.parse(open("Relations\\"+name, encoding="utf-8"))
@@ -158,44 +161,81 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
                 "operation": child.attrib["operation"] if "operation" in child.attrib else None
             })
 
-    # Get the data source
-    # Veri kaynağını al
-    j = json.load(
-        open("Data\\"+root.find("Data").attrib["source"], encoding="utf-8"))
-
-    processedData = {}
-
-    for entry in j:
-        processedData[entry[root.find("Data").attrib["by"]]] = entry
+    sourceFile = "Data\\"+root.find("Data").attrib["source"]
 
     # Get the excluders and includers
     # Hariç tutucuları ve dahil edicileri al
     excluders = {e.attrib["key"]:
-                 [t.replace(" ", "") for t in e.text.splitlines()
-                  if not str.isspace(t) and t != ""]
+                         [t.replace(" ", "") for t in e.text.splitlines()
+                          if not str.isspace(t) and t != ""]
                  for e in root.find("Data").findall(
         "Exclude") if "key" in e.attrib}
     includers = {e.attrib["key"]: [t.replace(" ", "") for t in e.text.splitlines() if not str.isspace(t) and t != ""] for e in root.find("Data").findall(
         "Include") if "key" in e.attrib}
-    for ex_0 in excluders:
-        for ex_1 in excluders[ex_0]:
-            for datum in list(processedData.values()):
-                if datum[ex_0] in ex_1:
-                    del processedData[ex_1]
-    for in_0 in includers:
-        for in_1 in includers[in_0]:
-            if in_1 not in processedData:
-                for datum in list(j):
-                    if datum[in_0] in in_1:
-                        processedData[in_1] = datum
 
     # Get the data types to get
     # Alınacak veri tiplerini al
     toGet = [g.attrib["key"] for g in root.find("Data").findall("Get")]
     convert = {g.attrib["key"]: g.attrib["convert"]
                for g in root.find("Data").findall("Get") if "convert" in g.attrib}
-    wanted = root.find("Representation").attrib["value"]
+
     realData = []
+
+    match sourceFile.split(".")[1]:
+        # If the source file is a .json file
+        # Kaynak dosyası .json dosyasıysa
+        case "json":
+            # Get the data source
+            # Veri kaynağını al
+            j = json.load(
+                open(sourceFile, encoding="utf-8"))
+
+            for entry in j:
+                processedData[entry[root.find("Data").attrib["by"]]] = entry
+
+            for ex_0 in excluders:
+                for ex_1 in excluders[ex_0]:
+                    for datum in list(processedData.values()):
+                        if datum[ex_0] in ex_1:
+                            del processedData[ex_1]
+            for in_0 in includers:
+                for in_1 in includers[in_0]:
+                    if in_1 not in processedData:
+                        for datum in list(j):
+                            if datum[in_0] in in_1:
+                                processedData[in_1] = datum
+
+            for filter in filters:
+                processedData = FilterData(
+                    processedData, filter["key"], filter["filter"], filter["operation"] if "operation" in filter else None)
+
+        # If the source file is a .csv file
+        # Kaynak dosyası .csv dosyasıysa
+        case "csv":
+            c = csv.reader(open(sourceFile, encoding="utf-8"))
+
+            keys = next(c)
+            keyIndices = {key: keys.index(key) for key in keys}
+            toGet = [g.attrib["key"] for g in root.find("Data").findall("Get")]
+            for indices in keyIndices:
+                if indices not in toGet:
+                    keys.remove(indices)
+            for row in c:
+
+                temp = {}
+                for key in keys:
+                    if key in keyIndices.keys():
+                        temp[key] = row[keyIndices[key]]
+                processedData[row[0]] = temp
+
+    for c in convert:
+        for entry in processedData:
+            processedData[entry][c] = Convert(
+                processedData[entry][c], convert[c])
+
+    # Get the wanted data type
+    # İstenen veri tipini al
+    wanted = root.find("Representation").attrib["value"]
 
     # If there are data types to get, filter the data
     # Alınacak veri tipleri varsa, veriyi filtrele
@@ -211,13 +251,6 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
                 if key == wanted:
                     realData.append(processedData[entry][key])
 
-    for filter in filters:
-        processedData = FilterData(
-            processedData, filter["key"], filter["filter"], filter["operation"] if "operation" in filter else None)
-
-    # Add the filtered data to the dictionary
-    # Filtrelenmiş veriyi sözlüğe ekle
-    result["Data"] = processedData
     representation = {
         "Colors": [[float(u) / 255.0 for u in t.text.split(" ")] for t in root.find("Representation").findall("Color")],
         "Value": root.find("Representation").attrib["value"],
@@ -227,6 +260,9 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
 
     result["Representation"] = representation
 
+    # Add the filtered data to the dictionary
+    # Filtrelenmiş veriyi sözlüğe ekle
+    result["Data"] = processedData
     return result
 
 # To get the names of the units in the .geojson file
