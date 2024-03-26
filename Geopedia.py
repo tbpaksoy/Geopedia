@@ -174,6 +174,9 @@ match mode.lower():
                 actors[key] = subactors
 
         files = os.listdir("Relations")
+        chosen = random.choice(files)
+        print(chosen)
+        ShowData(chosen, "en")
 
         # Show the plotter window
         # Çizim penceresini göster
