@@ -13,8 +13,10 @@
         Australian Bureau of Statistics
     </Provider>
     <Data source="Australia Population.json" by="State/Territory">
-        <Get key="State/Territory" />
         <Get key="no.2022" />
+        <Display key="no.2022" lang="tr">Nüfus</Display>
+        <Display key="no.2022" lang="de">Bevölkerung</Display>
+        <Display key="no.2022" lang="en">Population</Display>
     </Data>
     <Representation value="no.2022" map="Australia ADM1.geojson">
         <Color>255 255 255</Color>

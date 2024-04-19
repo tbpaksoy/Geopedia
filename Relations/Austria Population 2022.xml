@@ -13,8 +13,10 @@
         Statistik Austria
     </Provider>
     <Data source="Austria Population.json" by="Bundesland">
-        <Get key="Bundesland" />
         <Get key="2022" />
+        <Display key="2022" lang="tr">Nüfus</Display>
+        <Display key="2022" lang="de">Bevölkerung</Display>
+        <Display key="2022" lang="en">Population</Display>
     </Data>
     <Representation value="2022" map="Austria ADM1.geojson">
         <Color>255 255 255</Color>

@@ -1,47 +1,407 @@
 [
     {
-        "ASD": "Burgenland",
-        "Population": 4845649,
-        "GDP": null
+        "Province": "Adana",
+        "23": 44,
+        "name": "fhgfghrfth"
     },
     {
-        "ASD": "K\u00e4rnten",
-        "Population": null,
-        "GDP": null
+        "Province": "Ad\u0131yaman",
+        "23": -19,
+        "name": "gfhgfhgfhgfh"
     },
     {
-        "ASD": "Nieder\u00f6sterreich",
-        "Population": null,
-        "GDP": null
+        "Province": "Afyonkarahisar",
+        "23": null,
+        "name": null
     },
     {
-        "ASD": "Ober\u00f6sterreich",
-        "Population": null,
-        "GDP": null
+        "Province": "A\u011fr\u0131",
+        "23": 29,
+        "name": "nvbnvbnvbnvbnvbnvbnvb"
     },
     {
-        "ASD": "Salzburg",
-        "Population": null,
-        "GDP": null
+        "Province": "Amasya",
+        "23": 22,
+        "name": "dhgfghfgh"
     },
     {
-        "ASD": "Steiermark",
-        "Population": null,
-        "GDP": null
+        "Province": "Antalya",
+        "23": null,
+        "name": null
     },
     {
-        "ASD": "Tirol",
-        "Population": null,
-        "GDP": null
+        "Province": "Artvin",
+        "23": null,
+        "name": null
     },
     {
-        "ASD": "Vorarlberg",
-        "Population": null,
-        "GDP": null
+        "Province": "Ayd\u0131n",
+        "23": null,
+        "name": null
     },
     {
-        "ASD": "Wien",
-        "Population": 484564,
-        "GDP": 6544584
+        "Province": "Bal\u0131kesir",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Ankara",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Aksaray",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Ardahan",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Bart\u0131n",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Batman",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Bayburt",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Bilecik",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Bing\u00f6l",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Bitlis",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Bolu",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Burdur",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Bursa",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "\u00c7anakkale",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "\u00c7ank\u0131r\u0131",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "\u00c7orum",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Denizli",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Diyarbak\u0131r",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "D\u00fczce",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Edirne",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Elaz\u0131\u011f",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Erzincan",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Erzurum",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Eski\u015fehir",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Gaziantep",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Giresun",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "G\u00fcm\u00fc\u015fhane",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Hakkari",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Hatay",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "I\u011fd\u0131r",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Isparta",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "\u0130stanbul",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "\u0130zmir",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Kahramanmara\u015f",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Karab\u00fck",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Karaman",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Kars",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Kastamonu",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Kayseri",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Kilis",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "K\u0131r\u0131kkale",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "K\u0131rklareli",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "K\u0131r\u015fehir",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Kocaeli",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Konya",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "K\u00fctahya",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Malatya",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Manisa",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Mardin",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Mersin",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Mu\u011fla",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Mu\u015f",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Nev\u015fehir",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Ni\u011fde",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Ordu",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Osmaniye",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Rize",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Sakarya",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Samsun",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Siirt",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Sinop",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Sivas",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Tekirda\u011f",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Tokat",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Trabzon",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Tunceli",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "U\u015fak",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Van",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Yalova",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Yozgat",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "Zonguldak",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "\u015e\u0131rnak",
+        "23": null,
+        "name": null
+    },
+    {
+        "Province": "\u015eanl\u0131urfa",
+        "23": null,
+        "name": null
     }
 ]

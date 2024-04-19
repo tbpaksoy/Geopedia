@@ -13,8 +13,10 @@
         Statistisches Bundesamt
     </Provider>
     <Data source="Germany Population.json" by="Länder">
-        <Get key="Länder" />
         <Get key="2022-12-31" />
+        <Display key="2022-12-31" lang="tr">Nüfus</Display>
+        <Display key="2022-12-31" lang="de">Bevölkerung</Display>
+        <Display key="2022-12-31" lang="en">Population</Display>
     </Data>
     <Representation value="2022-12-31" map="Germany ADM1.geojson">
         <Color>255 255 255</Color>

@@ -13,8 +13,10 @@
         e-Stat (Government of Japan)
     </Provider>
     <Data source="Japan Population.json" by="AREA">
-        <Get key="AREA" />
         <Get key="Total" convert="integer" />
+        <Display key="Total" lang="tr">Nüfus</Display>
+        <Display key="Total" lang="de">Bevölkerung</Display>
+        <Display key="Total" lang="en">Population</Display>
     </Data>
     <Representation value="Total" map="Japan ADM1.geojson">
         <Color>255 255 255</Color>

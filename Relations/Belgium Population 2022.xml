@@ -13,8 +13,10 @@
         STATBEL
     </Provider>
     <Data source="Belgium Population.csv" by="Place">
-        <Get key="Place" />
         <Get key="Population 2022" convert="int" />
+        <Display key="Population 2022" lang="tr">Nüfus</Display>
+        <Display key="Population 2022" lang="de">Bevölkerung</Display>
+        <Display key="Population 2022" lang="en">Population</Display>
     </Data>
     <Representation value="Population 2022" map="Belgium ADM1.geojson">
         <Color>255 255 255</Color>

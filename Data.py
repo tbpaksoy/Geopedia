@@ -3,35 +3,6 @@ import json
 import csv
 import math
 
-# To perform operations
-# İşlemleri gerçekleştirmek için
-
-
-def Operate(a, b, operation: str):
-    result = None
-    try:
-        match operation:
-            case "add" | "addition" | "+":
-                result = a + b
-            case "subtract" | "subtraction" | "-":
-                result = a - b
-            case "multiply" | "multiplication" | "*" | "x":
-                result = a * b
-            case "divide" | "division" | "/" | "÷":
-                result = a / b
-            case "power" | "exponent" | "^":
-                result = a ** b
-            case "root" | "nthroot" | "√":
-                result = a ** (1 / b)
-            case "logarithm" | "log":
-                result = math.log(a, b)
-            case "modulus" | "mod" | "%":
-                result = a % b
-    except:
-        print("An error occurred while performing the operation.")
-    finally:
-        return result
-
 # To convert values to the desired type
 # Değerleri istenilen tipte çevirmek için
 
@@ -51,6 +22,10 @@ def Convert(value, type: str):
                 return 0.0
         case "string" | "str":
             return temp
+
+
+evaluators = {"sin": math.sin, "log": math.log, "exp": math.exp, "sqrt": math.sqrt,
+              "abs": abs, "ceil": math.ceil, "floor": math.floor, "round": round}
 
 # To filter the data
 # Veriyi filtrelemek için
@@ -103,7 +78,6 @@ def FilterData(data: dict, key: str, filter: str | int | float | list[str], oper
                     result[entry] = data[entry]
     return result
 
-
 # To get the data from the .xml file
 # .xml dosyasından veri almak için
 
@@ -111,7 +85,7 @@ def FilterData(data: dict, key: str, filter: str | int | float | list[str], oper
 def GetRelationalData(name: str, lang: str = None) -> dict:
     # If the file name does not contain ".xml", add it
     # Dosya adı ".xml" içermiyorsa, ekle
-    if ".xml" not in name:
+    if not name.endswith(".xml"):
         name += ".xml"
 
     processedData = {}
@@ -125,17 +99,14 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
     # Veriyi saklamak için bir sözlük oluştur
     result = {}
 
-    # Get the name and description of the relation
-    # İlişkinin adını ve açıklamasını al
-
     # If the language is not specified, get the default language
     # Dil belirtilmemişse, varsayılan dili al
     if lang is None:
-        default = root.find("Name").attrib["default"]
+        lang = default = root.find("Name").attrib["default"]
         for child in root.find("Name").findall("Text"):
             if child.attrib["language"] == default:
                 result["Name"] = child.text
-        default = root.find("Description").attrib["default"]
+        lang = default = root.find("Description").attrib["default"]
         for child in root.find("Description").findall("Text"):
             if child.attrib["language"] == default:
                 result["Description"] = child.text
@@ -179,6 +150,8 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
     convert = {g.attrib["key"]: g.attrib["convert"]
                for g in root.find("Data").findall("Get") if "convert" in g.attrib}
 
+    # Get the wanted data type
+    # İstenen veri tipini al
     realData = []
 
     match sourceFile.split(".")[1]:
@@ -192,22 +165,6 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
 
             for entry in j:
                 processedData[entry[root.find("Data").attrib["by"]]] = entry
-
-            for ex_0 in excluders:
-                for ex_1 in excluders[ex_0]:
-                    for datum in list(processedData.values()):
-                        if datum[ex_0] in ex_1:
-                            del processedData[ex_1]
-            for in_0 in includers:
-                for in_1 in includers[in_0]:
-                    if in_1 not in processedData:
-                        for datum in list(j):
-                            if datum[in_0] in in_1:
-                                processedData[in_1] = datum
-
-            for filter in filters:
-                processedData = FilterData(
-                    processedData, filter["key"], filter["filter"], filter["operation"] if "operation" in filter else None)
 
         # If the source file is a .csv file
         # Kaynak dosyası .csv dosyasıysa
@@ -228,10 +185,35 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
                         temp[key] = row[keyIndices[key]]
                 processedData[row[0]] = temp
 
+    # Convert the data to the desired type
+    # Veriyi istenilen tipte çevir
     for c in convert:
         for entry in processedData:
             processedData[entry][c] = Convert(
                 processedData[entry][c], convert[c])
+
+    # Exclude the data that should not be included
+    # Dahil edilmemesi gereken verileri hariç tut
+    for ex_0 in excluders:
+        for ex_1 in excluders[ex_0]:
+            for datum in list(processedData.values()):
+                if datum[ex_0] in ex_1:
+                    del processedData[ex_1]
+
+    # Include the data that should be included
+    # Dahil edilmesi gereken verileri dahil et
+    for in_0 in includers:
+        for in_1 in includers[in_0]:
+            if in_1 not in processedData:
+                for datum in list(j):
+                    if datum[in_0] in in_1:
+                        processedData[in_1] = datum
+
+    # Filter the data
+    # Veriyi filtrele
+    for filter in filters:
+        processedData = FilterData(
+            processedData, filter["key"], filter["filter"], filter["operation"] if "operation" in filter else None)
 
     # Get the wanted data type
     # İstenen veri tipini al
@@ -251,11 +233,36 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
                 if key == wanted:
                     realData.append(processedData[entry][key])
 
+    # To calculate custom values
+    # Özel değerleri hesaplamak için
+    for calc in [o for o in root.find("Data").findall("Calculate") if "key" in o.attrib]:
+        calcText = calc.text
+        split = calcText.split("%")
+        for key in processedData:
+            toCalc = ""
+            for i in range(len(split)):
+                if i % 2 == 0:
+                    toCalc += split[i]
+                else:
+                    if split[i] in processedData[key]:
+                        toCalc += str(processedData[key][split[i]])
+                    else:
+                        toCalc += split[i]
+            processedData[key][calc.attrib["key"]] = eval(toCalc)
+
+    # To display keys in regular and in different language texts.
+    # Anahtarları düzgün ve farklı dilde ki metinler ile görüntülemek için.
+    display = {}
+    for d in [o for o in root.find("Data").findall("Display") if "key" in o.attrib]:
+        if d.attrib["lang"] == lang:
+            display[d.attrib["key"]] = d.text
+
     representation = {
         "Colors": [[float(u) / 255.0 for u in t.text.split(" ")] for t in root.find("Representation").findall("Color")],
         "Value": root.find("Representation").attrib["value"],
         "Map": root.find("Representation").attrib["map"],
-        "Interval": (min(realData), max(realData))
+        "Interval": (min(realData), max(realData)),
+        "Display": display
     }
 
     result["Representation"] = representation

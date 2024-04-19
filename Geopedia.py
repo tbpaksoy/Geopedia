@@ -23,6 +23,8 @@ mode = "view"
 match mode.lower():
     case "view":
 
+        data = {}
+
         # To keep the legend count
         # Lejant sayısını tutmak için
         currentLegendCount = 0
@@ -33,28 +35,38 @@ match mode.lower():
 
         # To keep the values
         # Değerleri tutmak için
-        values = {}
+        displayValues = {}
 
         # Create a picker
         # Bir seçici oluştur
         picker = vtk.vtkCellPicker()
         picker.SetTolerance(0.0005)
 
-        textActor = vtk.vtkTextActor()
-        textActor.SetInput("Please select a administrative unit\n")
-        textProperty = textActor.GetTextProperty()
+        nameTextActor = vtk.vtkTextActor()
+        nameTextActor.SetInput("Please select a administrative unit\n")
+        textProperty = nameTextActor.GetTextProperty()
+        textProperty.SetJustificationToCentered()
         textProperty.SetFontSize(24)
         textProperty.SetColor(0, 0, 0)
         textProperty.SetVerticalJustificationToTop()
-        plotter.add_actor(textActor)
+        plotter.add_actor(nameTextActor)
+
+        valueTextActor = vtk.vtkTextActor()
+        textProperty = valueTextActor.GetTextProperty()
+        textProperty.SetJustificationToLeft()
+        textProperty.SetFontSize(18)
+        textProperty.SetColor(0, 0, 0)
+        textProperty.SetVerticalJustificationToTop()
+        plotter.add_actor(valueTextActor)
 
         # Reposition the text
         # Metni yeniden konumlandır
 
         def RepositionText(selfInteractor, event):
             size = renderer.GetSize()
-            global textActor, ren_win
-            textActor.SetPosition(size[0] / 2, size[1])
+            global nameTextActor, valueTextActor, ren_win
+            nameTextActor.SetPosition(size[0] / 2, size[1])
+            valueTextActor.SetDisplayPosition(0, size[1])
             ren_win.Render()
 
         RepositionText(None, None)
@@ -62,28 +74,33 @@ match mode.lower():
         # Add an observer to the window resize event
         # Pencereyi yeniden boyutlandırma olayına bir gözlemci ekle
         interactor.AddObserver(
-            vtk.vtkCommand.WindowResizeEvent, RepositionText)
+            vtk.vtkCommand.MouseMoveEvent, RepositionText)
 
         # Pick an actor
         # Bir aktör seç
 
         def Pick(selfInteractor, event):
-            mousePos = selfInteractor.GetEventPosition()
+            global ren_win
+            mousePos = interactor.GetEventPosition()
             global renderer, picker, actors
             picker.Pick(mousePos[0], mousePos[1], 0, renderer)
             id = picker.GetCellId()
             if id == -1:
                 return
             actor: vtk.vtkActor = picker.GetActor()
-            adm1 = ""
+            adm1 = " "
             for key in actors.keys():
                 if isinstance(actors[key], list) and actor in actors[key]:
                     adm1 = key
                     break
-            global textActor
-            textActor.SetInput(adm1 + "\n" + str(values[adm1]))
+            global nameTextActor, valueTextActor, displayValues
+            nameTextActor.SetInput(adm1)
+            valueText = ""
+            for key in data[adm1].keys():
+                valueText += key + " : " + str(data[adm1][key]) + "\n"
+            valueTextActor.SetInput(valueText)
 
-        interactor.AddObserver(vtk.vtkCommand.LeftButtonPressEvent, Pick)
+        interactor.AddObserver(vtk.vtkCommand.MouseMoveEvent, Pick)
 
         # Load a 3D model
         # Bir 3B model yükle
@@ -94,6 +111,13 @@ match mode.lower():
             # İlişkisel veriyi al
             relation = Data.GetRelationalData(file, lang)
             units = list(relation["Data"].keys())
+
+            # Store the data
+            # Veriyi sakla
+            global data
+            for unit in units:
+                data[unit] = relation["Data"][unit]
+
             representation = relation["Representation"]
             adm1s = Representation.BuildADM(
                 representation["Map"].split(".")[0], units)
@@ -155,11 +179,20 @@ match mode.lower():
             actors[file] = sca
             plotter.add_actor(sca)
 
+            display = representation["Display"]
+
             # Store the values
             # Değerleri sakla
-            global values
+            global displayValues
             for adm1 in adm1s.keys():
-                values[adm1] = relation["Data"][adm1][representation["Value"]]
+                displayValues[adm1] = relation["Data"][adm1]
+
+            for key in display:
+                for adm1 in adm1s.keys():
+                    if key in display:
+                        displayValues[adm1][display[key]
+                                            ] = displayValues[adm1][key]
+                        del displayValues[adm1][key]
 
             # Add the meshes to the plotter
             # Ağları çizim penceresine ekle
@@ -174,10 +207,8 @@ match mode.lower():
                 actors[key] = subactors
 
         files = os.listdir("Relations")
-        chosen = random.choice(files)
-        print(chosen)
-        ShowData(chosen, "en")
 
+        ShowData("Turkey Population 2023", "en")
         # Show the plotter window
         # Çizim penceresini göster
         ren_win.MakeCurrent()

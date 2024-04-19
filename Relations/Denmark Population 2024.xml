@@ -13,8 +13,10 @@
         Danmarks Statistik
     </Provider>
     <Data source="Denmark Population.json" by="Region">
-        <Get key="Region" />
         <Get key="2024Q1" />
+        <Display key="2024Q1" lang="tr">Nüfus</Display>
+        <Display key="2024Q1" lang="de">Bevölkerung</Display>
+        <Display key="2024Q1" lang="en">Population</Display>
     </Data>
     <Representation value="2024Q1" map="Denmark ADM1.geojson">
         <Color>255 255 255</Color>

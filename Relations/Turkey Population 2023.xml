@@ -13,8 +13,18 @@
         Türkiye İstatistik Kurumu
     </Provider>
     <Data source="Turkey Population.json" by="name">
-        <Get key="name" />
         <Get key="2023" convert="integer" />
+        <Get key="2017" convert="integer" />
+        <Display key="2023" lang="tr">2023 Nüfusu</Display>
+        <Display key="2023" lang="en">Population of 2023</Display>
+        <Display key="2023" lang="de">Bevölkerung 2023</Display>
+        <Display key="2017" lang="tr">2017 Nüfusu</Display>
+        <Display key="2017" lang="en">Population of 2017</Display>
+        <Display key="2017" lang="de">Bevölkerung 2017</Display>
+        <Calculate key="delta_2023_2017"> %2023% - %2017%</Calculate>
+        <Display key="delta_2023_2017" lang="tr">2017 ile 2023 Yılları Arasında Ki Nüfus Değişimi</Display>
+        <Display key="delta_2023_2017" lang="en">Population Change Between 2017 and 2023</Display>
+        <Display key="delta_2023_2017" lang="de">Bevölkerungsänderung zwischen 2017 und 2023</Display>
     </Data>
     <Representation value="2023" map="Turkey ADM1.geojson">
         <Color>255 255 255</Color>

@@ -13,8 +13,10 @@
         Institut national de la statistique et des études économiques
     </Provider>
     <Data source="France Population.json" by="Régions">
-        <Get key="Régions" />
         <Get key="Total" convert="integer" />
+        <Display key="Total" lang="tr">Nüfus</Display>
+        <Display key="Total" lang="en">Population</Display>
+        <Display key="Total" lang="de">Bevölkerung</Display>
     </Data>
     <Representation value="Total" map="France ADM1.geojson">
         <Color>255 255 255</Color>

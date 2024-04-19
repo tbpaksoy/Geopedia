@@ -13,8 +13,10 @@
         Federal Statistical Office
     </Provider>
     <Data source="Switzerland Population.csv" by="Cantons">
-        <Get key="Cantons" />
         <Get key="Total" convert="int" />
+        <Display key="Total" lang="tr">Nüfus</Display>
+        <Display key="Total" lang="de">Bevölkerung</Display>
+        <Display key="Total" lang="en">Population</Display>
     </Data>
     <Representation value="Total" map="Switzerland ADM1.geojson">
         <Color>255 255 255</Color>

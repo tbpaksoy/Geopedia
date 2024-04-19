@@ -11,8 +11,10 @@
         Instituto Nacional de Estadística y Geografía
     </Provider>
     <Data source="Mexico Population.csv" by="Entidad federativa">
-        <Get key="Entidad federativa" />
         <Get key="2020" convert="integer" />
+        <Display key="2020" lang="tr">Nüfus</Display>
+        <Display key="2020" lang="en">Poulation</Display>
+        <Display key="2020" lang="de">Bevölkerung</Display>
     </Data>
     <Representation value="2020" map="Mexico ADM1.geojson">
         <Color>255 255 255</Color>

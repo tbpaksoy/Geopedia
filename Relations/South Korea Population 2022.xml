@@ -13,8 +13,10 @@
         KOSTAT
     </Provider>
     <Data source="South Korea Population.csv" by="Administrative divisions">
-        <Get key="Administrative divisions" />
         <Get key="Total population (Person)" convert="int" />
+        <Display key="Total population (Person)" lang="en">Population of 2022</Display>
+        <Display key="Total population (Person)" lang="tr">2022 Nüfusu</Display>
+        <Display key="Total population (Person)" lang="de">Bevölkerung 2022</Display>
     </Data>
     <Representation value="Total population (Person)" map="South Korea ADM1.geojson">
         <Color>255 255 255</Color>
