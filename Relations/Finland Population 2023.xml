@@ -1,0 +1,23 @@
+<Relation>
+    <Name default="en">
+        <Text language="en">Population of Finland in 2023</Text>
+        <Text language="tr">2023'te Finlandiya'nın Nüfusu</Text>
+        <Text language="de">Bevölkerung von Finnland im Jahr 2023</Text>
+    </Name>
+    <Description default="en">
+        <Text language="en">By regions.</Text>
+        <Text language="tr">Bölgelere göre.</Text>
+        <Text language="de">Nach Regionen.</Text>
+    </Description>
+    <Provider>Tilastokeskus</Provider>
+    <Data source="Finland Population.csv" by="maakunta">
+        <Get key="Population" convert="integer" />
+        <Display key="Population" lang="tr">2023 Nüfusu</Display>
+        <Display key="Population" lang="en">Population of 2023</Display>
+        <Display key="Population" lang="de">Bevölkerung 2023</Display>
+    </Data>
+    <Representation value="Population" map="Finland ADM1.geojson">
+        <Color>255 255 255</Color>
+        <Color>0 43 108</Color>
+    </Representation>
+</Relation>

@@ -1,3 +1,5 @@
+import xml.etree
+import xml.etree.ElementTree
 import pyvista as pv
 import vtk
 import Data
@@ -7,7 +9,7 @@ import random
 import dearpygui.dearpygui as dpg
 from multiprocessing import Process
 import json
-
+import xml
 
 # Create a plotter window
 # Bir çizim penceresi oluştur
@@ -18,10 +20,74 @@ ren_win: vtk.vtkRenderWindow = plotter.ren_win
 renderer: vtk.vtkRenderer = ren_win.GetRenderers().GetFirstRenderer()
 interactor = ren_win.GetInteractor()
 
+
 mode = "view"
+
+
+def SetMode(sender):
+    global mode
+    mode = dpg.get_value(sender)
+
+
+dpg.create_context()
+dpg.create_viewport()
+dpg.setup_dearpygui()
+
+win = dpg.add_window(label="Geopedia", width=500,
+                     height=500, no_resize=True, no_move=True, no_close=True, no_collapse=True)
+
+dpg.add_text("Select a mode", parent=win)
+
+dpg.add_radio_button(items=["View", "Data Edit", "Relation Edit"],
+                     callback=SetMode, parent=win)
+
+dpg.add_text("Close window to continue", parent=win)
+
+dpg.show_viewport()
+dpg.start_dearpygui()
+dpg.destroy_context()
 
 match mode.lower():
     case "view":
+        selectedFiles: list[str] = []
+        selectedFile: str
+        lang: str = "en"
+
+        dpg.create_context()
+        dpg.create_viewport(width=400, height=800)
+        dpg.setup_dearpygui()
+
+        files = os.listdir("Relations")
+
+        window = dpg.add_window(width=400, height=800, pos=[
+                                0, 0], no_collapse=True, no_close=True, no_move=True)
+
+        def SelectFile(sender):
+            global selectedFile
+            selectedFile = dpg.get_value(sender)
+
+        def AddFile():
+            global selectedFiles
+            if selectedFile not in selectedFiles:
+                selectedFiles.append(selectedFile)
+                dpg.add_text(default_value=selectedFile, parent=window)
+
+        def SelectLang(sender):
+            global lang
+            lang = dpg.get_value(sender)
+
+        dpg.add_listbox(parent=window, items=files,
+                        callback=SelectFile)
+
+        dpg.add_button(label="Add File",
+                       callback=lambda: AddFile(), parent=window)
+
+        dpg.add_listbox(parent=window, items=[
+                        "en", "tr", "de"], callback=SelectLang)
+
+        dpg.show_viewport()
+        dpg.start_dearpygui()
+        dpg.destroy_context()
 
         data = {}
 
@@ -206,16 +272,14 @@ match mode.lower():
                     subactors.append(actor)
                 actors[key] = subactors
 
-        files = os.listdir("Relations")
-
-        ShowData("Turkey Population 2023", "en")
+        for file in selectedFiles:
+            ShowData(file, lang)
         # Show the plotter window
         # Çizim penceresini göster
         ren_win.MakeCurrent()
 
         plotter.show()
-
-    case "table edit":
+    case "data edit":
 
         # To keep the counter
         # Sayaç tutmak için
@@ -365,3 +429,97 @@ match mode.lower():
             p1 = Process(target=RunKeyEditScreen)
             p1.start()
             p1.join()
+    case "relation edit":
+
+        # dearpygui related
+        # dearpygui ile ilgili
+        mainWindow: int
+        nameSection: int
+        descriptionSection: int
+
+        def RunRelationEditWindow():
+            dpg.create_context()
+            dpg.create_viewport()
+            dpg.setup_dearpygui()
+
+            global mainWindow, nameSection, descriptionSection
+
+            mainWindow = dpg.add_window(
+                label="Relation Edit", width=500, height=500)
+
+            dpg.add_button(label="Save", callback=lambda: SaveRelation(
+            ), parent=mainWindow)
+
+            def ToggleNameSection():
+                shown = dpg.is_item_shown(nameSection)
+                if shown:
+                    dpg.hide_item(nameSection)
+                else:
+                    dpg.show_item(nameSection)
+
+            dpg.add_button(
+                label="Names", callback=lambda: ToggleNameSection(), parent=mainWindow)
+
+            nameSection = dpg.add_group(label="Name", parent=mainWindow)
+            dpg.add_button(label="Add Name", callback=lambda: AddName(),
+                           parent=nameSection)
+
+            group = dpg.add_group(parent=nameSection, horizontal=True)
+            dpg.add_text(default_value="Default", parent=group)
+            dpg.add_input_text(parent=group, callback=SetNameDefault)
+
+            dpg.show_viewport()
+            dpg.start_dearpygui()
+            dpg.destroy_context()
+
+        # XML related
+        # XML ile ilgili
+        relation = xml.etree.ElementTree.Element("Relation")
+
+        def SaveRelation():
+            tree = xml.etree.ElementTree.ElementTree(relation)
+            tree.write("Relations/test.xml")
+
+        name = xml.etree.ElementTree.SubElement(relation, "Name")
+        name.attrib["default"] = ""
+
+        def SetNameDefault(sender):
+            global name
+            name.attrib["default"] = dpg.get_value(sender)
+
+        def AddName():
+            global nameSection, name
+            se = xml.etree.ElementTree.SubElement(name, "Text")
+
+            def SetValue(sender):
+                se.text = dpg.get_value(sender)
+
+            def SetLang(sender):
+                se.attrib["lang"] = dpg.get_value(sender)
+
+            group = dpg.add_group(parent=nameSection, horizontal=True)
+            dpg.add_text(default_value="lang", parent=group)
+            dpg.add_input_text(parent=group,
+                               callback=SetLang, width=50)
+            dpg.add_text(default_value="text", parent=group)
+            dpg.add_input_text(parent=group,
+                               callback=SetValue, height=200)
+
+            def RemoveName():
+                dpg.delete_item(item=group)
+                name.remove(se)
+
+            dpg.add_button(
+                label="Remove", callback=lambda: RemoveName(), parent=group)
+
+        description = xml.etree.ElementTree.SubElement(relation, "Description")
+        description.attrib["default"] = ""
+
+        provider = xml.etree.ElementTree.SubElement(relation, "Provider")
+
+        data = xml.etree.ElementTree.SubElement(relation, "Data")
+
+        representation = xml.etree.ElementTree.SubElement(
+            relation, "Representation")
+        if __name__ == "__main__":
+            RunRelationEditWindow()
