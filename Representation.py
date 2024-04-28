@@ -100,39 +100,51 @@ def RepresentValueWithColor(meshes: dict, values: dict, interval: list = [[1.0, 
 
 
 def RepresentValuesWithColors(meshes: dict, values: dict, colors: dict = {0.0: [1.0, 1.0, 1.0], 1.0: [0.0, 0.0, 0.0]}) -> dict:
-    # Normalize the values
-    # Değerleri normalize et
-    minVal, maxVal = min(values.values()), max(values.values())
-    normalized = {}
-    if len(values) > 1 and maxVal != minVal:
-        for key in values.keys():
-            normalized[key] = (values[key] - minVal) / (maxVal - minVal)
-    else:
-        normalized = {list(values.keys())[0]: 1.0}
 
     # Create the color representation
     # Renk temsilini oluştur
-    temp = ColorRamp(normalized, colors)
-    return {key: (meshes[key], temp[key]) for key in normalized.keys()}
+    temp = ColorRamp(values, colors)
+    return {key: (meshes[key], temp[key]) for key in values.keys()}
 
 
 def ColorRamp(values: dict, colors: dict) -> dict[str: list]:
     maxVal, minVal = max(values.values()), min(values.values())
-    for key in colors:
-        if isinstance(key, int):
+    for key in list(colors.keys()):
+        if "." not in str(key):
             colors[(key - minVal) / (maxVal - minVal)] = colors[key]
             del colors[key]
-    normalized = {(values[key] - minVal) / (maxVal - minVal): key for key in values.keys()}
+    normalized = {key: (values[key] - minVal) / (maxVal - minVal)
+                  for key in values.keys()}
     colors = dict(sorted(colors.items()))
     result = {}
 
+    colorKeys = list(colors.keys())
+    colorValues = list(colors.values())
+
     for key in normalized:
-        for i in range(len(colors)-1):
-            if normalized[key] >= colors.keys()[i]:
-                x, y = colors.keys()[i], colors.keys()[i+1]
-                relative = (key-x)/(y-x)
-                begin, end = colors.values()[i], colors.values()[i+1]
-                result[key] = [begin[j] + relative * (end[j]-begin[j])
-                               for j in range(3)]
+        for i in range(len(colors) - 1):
+            if normalized[key] >= colorKeys[i] and normalized[key] <= colorKeys[i+1]:
+                x, y, z = colorValues[i], colorValues[i+1], normalized[key]
+                z = (z - colorKeys[i]) / (colorKeys[i+1] - colorKeys[i])
+                result[key] = [x[i] + (z) * (y[i] - x[i])
+                               for i in range(3)]
                 break
+    return result
+
+
+def ColorRampSample(colorRamp: dict[str: list], value: float) -> list:
+    minBound, maxBound = 0, len(colorRamp)-1
+    keys = list(colorRamp.keys())
+    for i in range(int(len(keys))):
+        if value == keys[i]:
+            return colorRamp[keys[i]]
+        if value > keys[i]:
+            minBound = i
+        if value < keys[i]:
+            maxBound = i
+    value = (value - keys[minBound]) / (keys[maxBound] - keys[minBound])
+    colors = list(colorRamp.values())
+    begin, end = colors[minBound], colors[maxBound]
+    result = [begin[j] + value *
+              (end[j] - begin[j]) for j in range(3)]
     return result

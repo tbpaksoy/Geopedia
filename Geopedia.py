@@ -188,14 +188,11 @@ match mode.lower():
             adm1s = Representation.BuildADM(
                 representation["Map"].split(".")[0], units)
 
-            # Get the colors
-            # Renkleri al
-            colors = [color for color in representation["Colors"]]
-            colorGap = [colors[1][i] - colors[0][i] for i in range(3)]
+            colors = representation["Colors"]
 
             # Represent the data with colors
             # Veriyi renklerle temsil et
-            meshesAndColors = Representation.RepresentValueWithColor(
+            meshesAndColors = Representation.RepresentValuesWithColors(
                 adm1s, {item: relation["Data"][item][representation["Value"]] for item in relation["Data"].keys()}, colors)
 
             # Create a lookup table
@@ -205,9 +202,9 @@ match mode.lower():
             lu.SetRange(representation["Interval"][0] /
                         1e6, representation["Interval"][1] / 1e6)
             for key in range(256):
-                lu.SetTableValue(key, colors[0][0] + colorGap[0] * key / 255.0,
-                                 colors[0][1] + colorGap[1] * key / 255.0,
-                                 colors[0][2] + colorGap[2] * key / 255.0)
+                color = Representation.ColorRampSample(
+                    colors, key / 255.0)
+                lu.SetTableValue(key, color[0], color[1], color[2])
 
             # Add the scalar bar as legend
             # Lejant olarak skaler çubuğu ekle

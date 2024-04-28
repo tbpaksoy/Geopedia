@@ -258,13 +258,12 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
             display[d.attrib["key"]] = d.text
 
     representation = {
-        "Colors": [[float(u) / 255.0 for u in t.text.split(" ")] for t in root.find("Representation").findall("Color")],
+        "Colors": {float(se.attrib["key"]) if "." in se.attrib["key"] else int(se.attrib["key"]): [float(u) if "." in u else float(u) / 255.0 for u in se.text.split(" ")] for se in root.find("Representation").findall("Color")},
         "Value": root.find("Representation").attrib["value"],
         "Map": root.find("Representation").attrib["map"],
         "Interval": (min(realData), max(realData)),
         "Display": display
     }
-
     result["Representation"] = representation
 
     # Add the filtered data to the dictionary
