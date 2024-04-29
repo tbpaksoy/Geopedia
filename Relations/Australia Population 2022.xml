@@ -19,7 +19,8 @@
         <Display key="no.2022" lang="en">Population</Display>
     </Data>
     <Representation value="no.2022" map="Australia ADM1.geojson">
-        <Color>255 255 255</Color>
-        <Color>0 71 160</Color>
+        <Color key="0.0">232 233 235</Color>
+        <Color key="1000000">100 141 229</Color>
+        <Color key="1.0">239 100 97</Color>
     </Representation>
 </Relation>

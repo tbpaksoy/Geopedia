@@ -262,7 +262,8 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
         "Value": root.find("Representation").attrib["value"],
         "Map": root.find("Representation").attrib["map"],
         "Interval": (min(realData), max(realData)),
-        "Display": display
+        "Display": display,
+        "Borders": [(b.attrib["source"], float(b.attrib["width"]), [int(c) for c in b.attrib["color"].split(" ")]) for b in root.find("Representation").findall("Borders") if "source" in b.attrib and "width" in b.attrib and "color" in b.attrib]
     }
     result["Representation"] = representation
 

@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import json
 import trimesh as tm
+import pyvista as pv
 
 
 def BuildADM(file: str, id: int | str | list | None = None) -> dict:
@@ -35,7 +36,6 @@ def BuildADM(file: str, id: int | str | list | None = None) -> dict:
         case None:
             for feature in features:
                 query.append(feature)
-
     polygons = {}
 
     # Get the name and description of the relation
@@ -64,6 +64,61 @@ def BuildADM(file: str, id: int | str | list | None = None) -> dict:
                             polygons[key2][j])
     return {key: [tm.creation.extrude_polygon(poly, 0.1) for poly in polygons[key]] for key in polygons.keys()}
 
+
+def BuildADMBorders(file: str, id: int | str | list | None = None) -> dict[str, list[pv.PolyData]]:
+    if not file.endswith(".geojson"):
+        file += ".geojson"
+
+    # Get data from .json
+    # .json dosyasından veri al
+    data = json.load(open("Countries\\"+file, encoding="utf-8"))
+    # Get the features
+    # Özellikleri al
+    features = data["features"]
+    query = []
+
+    match id:
+        case int():
+            query.append(features[id])
+        case str():
+            for feature in features:
+                if feature["properties"]["shapeName"] == id:
+                    query.append(feature)
+        case list():
+            for i in id:
+                match i:
+                    case int():
+
+                        query.append(features[i])
+                    case str():
+                        for feature in features:
+                            if feature["properties"]["shapeName"] == i:
+                                query.append(feature)
+        case None:
+            for feature in features:
+                query.append(feature)
+
+    polyDatas = {}
+
+    # Get the name and description of the relation
+    # İlişkinin adını ve açıklamasını al
+    for item in query:
+        name = item["properties"]["shapeName"]
+        coordinates = item["geometry"]["coordinates"]
+        polyDatas[name] = []
+        if isinstance(coordinates[0][0][0], list):
+            for border in coordinates:
+                temp = [[point[0], point[1], 0.1] for point in border[0]]
+                polyData = pv.line_segments_from_points(
+                    [p for i in range(len(temp) - 1) for p in [temp[i], temp[i+1]]] + [temp[-1], temp[0]])
+                polyDatas[name].append(polyData)
+        else:
+            temp = [[point[0], point[1], 0.1] for point in coordinates[0]]
+            polyData = pv.line_segments_from_points([p for i in range(
+                len(temp) - 1) for p in [temp[i], temp[i+1]]] + [temp[-1], temp[0]])
+            polyDatas[name].append(polyData)
+
+    return polyDatas
 
 # Represent the values with color
 # Değerleri renk ile temsil et
@@ -104,7 +159,7 @@ def RepresentValuesWithColors(meshes: dict, values: dict, colors: dict = {0.0: [
     # Create the color representation
     # Renk temsilini oluştur
     temp = ColorRamp(values, colors)
-    return {key: (meshes[key], temp[key]) for key in values.keys()}
+    return {key: (meshes[key], temp[key]) for key in values.keys() if key in meshes.keys() and key in temp.keys()}
 
 
 def ColorRamp(values: dict, colors: dict) -> dict[str: list]:

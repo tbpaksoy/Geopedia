@@ -17,7 +17,8 @@
         <Display key="Population" lang="de">Bevölkerung 2023</Display>
     </Data>
     <Representation value="Population" map="Finland ADM1.geojson">
-        <Color>255 255 255</Color>
-        <Color>0 43 108</Color>
+        <Color key="0.0">232 233 235</Color>
+        <Color key="1000000">100 141 229</Color>
+        <Color key="1.0">239 100 97</Color>
     </Representation>
 </Relation>

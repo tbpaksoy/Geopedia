@@ -17,7 +17,8 @@
         <Display key="2020" lang="de">Bevölkerung</Display>
     </Data>
     <Representation value="2020" map="Mexico ADM1.geojson">
-        <Color>255 255 255</Color>
-        <Color>0 104 71</Color>
+        <Color key="0.0">232 233 235</Color>
+        <Color key="1000000">100 141 229</Color>
+        <Color key="1.0">239 100 97</Color>
     </Representation>
 </Relation>

@@ -19,7 +19,8 @@
         <Display key="Population 2022" lang="en">Population</Display>
     </Data>
     <Representation value="Population 2022" map="Belgium ADM1.geojson">
-        <Color>255 255 255</Color>
-        <Color>253 218 36</Color>
+        <Color key="0.0">232 233 235</Color>
+        <Color key="1000000">100 141 229</Color>
+        <Color key="1.0">239 100 97</Color>
     </Representation>
 </Relation>
