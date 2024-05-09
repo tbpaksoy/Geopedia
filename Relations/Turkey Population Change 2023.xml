@@ -26,10 +26,10 @@
         <Display key="delta_2023_2017" lang="en">Population Change Between 2017 and 2023</Display>
         <Display key="delta_2023_2017" lang="de">Bevölkerungsänderung zwischen 2017 und 2023</Display>
     </Data>
-    <Representation value="2023" map="Turkey ADM1.geojson">
-        <Color key="0.0">232 233 235</Color>
-        <Color key="1000000">100 141 229</Color>
-        <Color key="1.0">239 100 97</Color>
+    <Representation value="delta_2023_2017" map="Turkey ADM1.geojson">
+        <Color key="0.0">191 6 3</Color>
+        <Color key="0">197 255 253</Color>
+        <Color key="1.0">122 171 95</Color>
         <Borders source="Turkey ADM1.geojson" width="1" color="127 127 127" />
         <Borders source="Turkey ADM0.geojson" width="2.5" color="0 0 0" />
     </Representation>

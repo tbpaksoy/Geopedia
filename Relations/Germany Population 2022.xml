@@ -1,10 +1,10 @@
-<Relation>
-    <Name default="en">
+<Relation default="en">
+    <Name>
         <Text language="en">2022 Population of Germany</Text>
         <Text language="tr">Almanya'nın 2022 Nüfusu</Text>
         <Text language="de">die Bevölkerung 2022 von Deutschland </Text>
     </Name>
-    <Description default="en">
+    <Description>
         <Text language="en">the Population of Germany by the states in 2022</Text>
         <Text language="tr">Almanya'nın 2022 yılında eyaletlere göre nüfusu</Text>
         <Text language="de">die Bevölkerung von Deutschland nach den Ländern im Jahr 2022</Text>
@@ -22,5 +22,7 @@
         <Color key="0.0">232 233 235</Color>
         <Color key="1000000">100 141 229</Color>
         <Color key="1.0">239 100 97</Color>
+        <Borders source="Germany ADM1.geojson" width="1" color="127 127 127" />
+        <Borders source="Germany ADM0.geojson" width="2.5" color="0 0 0" />
     </Representation>
 </Relation>

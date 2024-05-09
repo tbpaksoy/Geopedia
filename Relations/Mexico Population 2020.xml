@@ -1,9 +1,9 @@
-<Relation>
-    <Name default="en">
+<Relation default="en">
+    <Name>
         <Text language="en">Mexico Population 2020</Text>
         <Text language="tr">Meksika Nüfusu 2020</Text>
     </Name>
-    <Description default="en">
+    <Description>
         <Text language="en">Mexico population 2020 by states</Text>
         <Text language="tr">Meksika nüfusu 2020, eyaletlere göre</Text>
     </Description>

@@ -1,10 +1,10 @@
-<Relation>
-    <Name default="en">
+<Relation default="en">
+    <Name>
         <Text language="en">2022 Population of Japan</Text>
         <Text language="tr">Japonya'nın 2022 Nüfusu</Text>
         <Text language="de">die Bevölkerung 2022 von Japan </Text>
     </Name>
-    <Description default="en">
+    <Description>
         <Text language="en">the Population of Japan by the states in 2022</Text>
         <Text language="tr">Japonya'nın 2022 yılında prefektörlüklere göre nüfusu</Text>
         <Text language="de">die Bevölkerung von Japan nach den Präfekturen im Jahr 2022</Text>

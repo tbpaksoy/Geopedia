@@ -1,10 +1,10 @@
-<Relation>
-    <Name default="en">
+<Relation default="en">
+    <Name>
         <Text language="en">Population of Switzerland in 2022</Text>
         <Text language="tr">İsviçre'nin 2022 Nüfusu</Text>
         <Text language="de">die Bevölkerung der Schweiz im Jahr 2022</Text>
     </Name>
-    <Description default="en">
+    <Description>
         <Text language="en">the Population of Switzerland by the cantons in 2022</Text>
         <Text language="tr">İsviçre'nin 2022 yılında kantonlara göre nüfusu</Text>
         <Text language="de">die Bevölkerung der Schweiz nach den Kantonen im Jahr 2022</Text>

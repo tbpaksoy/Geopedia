@@ -1,6 +1,7 @@
 import xml.etree
 import xml.etree.ElementTree
 import pyvista as pv
+import pyvista.plotting.actor as pvpActor
 import vtk
 import Data
 import Representation
@@ -197,15 +198,13 @@ match mode.lower():
 
             borders = representation["Borders"]
 
-            print(borders)
-
             for border in borders:
                 lines = Representation.BuildADMBorders(border[0])
                 for key in lines.keys():
                     for line in lines[key]:
                         _line: pv.PolyData = line
                         plotter.add_lines(
-                            _line.points, color=border[2], width=border[1])
+                            _line.points, color=border[2], width=border[1], connected=True)
 
             # Create a lookup table
             # Bir arama tablosu oluştur

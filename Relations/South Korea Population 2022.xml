@@ -1,10 +1,10 @@
-<Relation>
-    <Name default="en">
+<Relation default="en">
+    <Name>
         <Text language="en">2022 Population of South Korea</Text>
         <Text language="tr">Güney Kore'nin 2022 Nüfusu</Text>
         <Text language="de">die Bevölkerung 2022 von Südkorea </Text>
     </Name>
-    <Description default="en">
+    <Description>
         <Text language="en">the Population of South Korea by the provinces in 2022</Text>
         <Text language="tr">Güney Kore'nin 2022 yılında illere göre nüfusu</Text>
         <Text language="de">die Bevölkerung von Südkorea nach den Provinzen im Jahr 2022</Text>

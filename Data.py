@@ -98,24 +98,24 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
     # Create a dictionary to store the data
     # Veriyi saklamak için bir sözlük oluştur
     result = {}
-
+    default = root.attrib["default"]
     # If the language is not specified, get the default language
     # Dil belirtilmemişse, varsayılan dili al
     if lang is None:
-        lang = default = root.find("Name").attrib["default"]
+        lang = default
         for child in root.find("Name").findall("Text"):
-            if child.attrib["language"] == default:
+            if ("language" in child.attrib and child.attrib["language"] == default) or ("lang" in child.attrib and child.attrib["lang"] == default):
                 result["Name"] = child.text
         lang = default = root.find("Description").attrib["default"]
         for child in root.find("Description").findall("Text"):
-            if child.attrib["language"] == default:
+            if ("language" in child.attrib and child.attrib["language"] == default) or ("lang" in child.attrib and child.attrib["lang"] == default):
                 result["Description"] = child.text
 
     # If the language is specified, get the data in that language
     # Dil belirtilmişse, o dildeki veriyi al
     else:
         for child in root.find("Name").findall("Text"):
-            if child.attrib["language"] == lang:
+            if ("language" in child.attrib and child.attrib["language"] == default) or ("lang" in child.attrib and child.attrib["lang"] == default):
                 result["Name"] = child.text
         for child in root.find("Description").findall("Text"):
             if child.attrib["language"] == lang:
@@ -219,20 +219,6 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
     # İstenen veri tipini al
     wanted = root.find("Representation").attrib["value"]
 
-    # If there are data types to get, filter the data
-    # Alınacak veri tipleri varsa, veriyi filtrele
-    if len(toGet) > 0:
-        for entry in processedData:
-            for key in list(processedData[entry]):
-                if key not in toGet:
-                    del processedData[entry][key]
-                    continue
-                if key in convert:
-                    processedData[entry][key] = Convert(
-                        processedData[entry][key], convert[key])
-                if key == wanted:
-                    realData.append(processedData[entry][key])
-
     # To calculate custom values
     # Özel değerleri hesaplamak için
     for calc in [o for o in root.find("Data").findall("Calculate") if "key" in o.attrib]:
@@ -254,8 +240,22 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
     # Anahtarları düzgün ve farklı dilde ki metinler ile görüntülemek için.
     display = {}
     for d in [o for o in root.find("Data").findall("Display") if "key" in o.attrib]:
-        if d.attrib["lang"] == lang:
+        if ("lang" in d.attrib and d.attrib["lang"] == lang) or ("language" in d.attrib and d.attrib["language"] == lang):
             display[d.attrib["key"]] = d.text
+
+    # If there are data types to get, filter the data
+    # Alınacak veri tipleri varsa, veriyi filtrele
+    if len(toGet) > 0:
+        for entry in processedData:
+            for key in list(processedData[entry]):
+                if key not in toGet and key not in [o.attrib["key"] for o in root.find("Data").findall("Calculate") if "key" in o.attrib]:
+                    del processedData[entry][key]
+                    continue
+                if key in convert:
+                    processedData[entry][key] = Convert(
+                        processedData[entry][key], convert[key])
+                if key == wanted:
+                    realData.append(processedData[entry][key])
 
     representation = {
         "Colors": {float(se.attrib["key"]) if "." in se.attrib["key"] else int(se.attrib["key"]): [float(u) if "." in u else float(u) / 255.0 for u in se.text.split(" ")] for se in root.find("Representation").findall("Color")},

@@ -65,7 +65,7 @@ def BuildADM(file: str, id: int | str | list | None = None) -> dict:
     return {key: [tm.creation.extrude_polygon(poly, 0.1) for poly in polygons[key]] for key in polygons.keys()}
 
 
-def BuildADMBorders(file: str, id: int | str | list | None = None) -> dict[str, list[pv.PolyData]]:
+def BuildADMBorders(file: str, id: int | str | list | None = None) -> dict:
     if not file.endswith(".geojson"):
         file += ".geojson"
 
@@ -109,13 +109,11 @@ def BuildADMBorders(file: str, id: int | str | list | None = None) -> dict[str, 
         if isinstance(coordinates[0][0][0], list):
             for border in coordinates:
                 temp = [[point[0], point[1], 0.1] for point in border[0]]
-                polyData = pv.line_segments_from_points(
-                    [p for i in range(len(temp) - 1) for p in [temp[i], temp[i+1]]] + [temp[-1], temp[0]])
+                polyData = pv.lines_from_points(temp, True)
                 polyDatas[name].append(polyData)
         else:
             temp = [[point[0], point[1], 0.1] for point in coordinates[0]]
-            polyData = pv.line_segments_from_points([p for i in range(
-                len(temp) - 1) for p in [temp[i], temp[i+1]]] + [temp[-1], temp[0]])
+            polyData = pv.lines_from_points(temp, True)
             polyDatas[name].append(polyData)
 
     return polyDatas
@@ -165,7 +163,7 @@ def RepresentValuesWithColors(meshes: dict, values: dict, colors: dict = {0.0: [
 def ColorRamp(values: dict, colors: dict) -> dict[str: list]:
     maxVal, minVal = max(values.values()), min(values.values())
     for key in list(colors.keys()):
-        if "." not in str(key):
+        if isinstance(key, int):
             colors[(key - minVal) / (maxVal - minVal)] = colors[key]
             del colors[key]
     normalized = {key: (values[key] - minVal) / (maxVal - minVal)

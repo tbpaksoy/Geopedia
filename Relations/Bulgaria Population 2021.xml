@@ -1,0 +1,28 @@
+<Relation default="en">
+    <Name>
+        <Text language="en">2022 Population of Bulgaria</Text>
+        <Text language="tr">Bulgaristan'ın 2022 Nüfusu</Text>
+        <Text language="de">die Bevölkerung 2022 von Bulgarien</Text>
+    </Name>
+    <Description>
+        <Text language="en">the Population of Bulgaria by the states in 2022</Text>
+        <Text language="tr">Bulgaristan'ın 2022 yılında vilayetlere göre nüfusu</Text>
+        <Text language="de">die Bevölkerung von Bulgarien nach den Provinzen im Jahr 2022</Text>
+    </Description>
+    <Provider>
+        Национален статистически институт
+    </Provider>
+    <Data source="Bulgaria Population.csv" by="Province">
+        <Get key="2021 Total" convert="int" />
+        <Display key="2021 Total" lang="tr">2011 Nüfusu</Display>
+        <Display key="2021 Total" lang="de">Bevölkerung des Jahrs 2021</Display>
+        <Display key="2021 Total" lang="en">Population of the Year 2021</Display>
+    </Data>
+    <Representation value="2021 Total" map="Bulgaria ADM1.geojson">
+        <Color key="0.0">232 233 235</Color>
+        <Color key="1000000">100 141 229</Color>
+        <Color key="1.0">239 100 97</Color>
+        <Borders source="Bulgaria ADM1.geojson" width="1" color="127 127 127" />
+        <Borders source="Bulgaria ADM0.geojson" width="2.5" color="0 0 0" />
+    </Representation>
+</Relation>
