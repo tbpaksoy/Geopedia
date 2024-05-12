@@ -5,9 +5,9 @@
         <Text language="de">die Bevölkerung 2022 von Italien </Text>
     </Name>
     <Description>
-        <Text language="en">the Population of Turkey by the regions in 2022</Text>
+        <Text language="en">the Population of Italy by the regions in 2022</Text>
         <Text language="tr">İtalya'nın 2023 yılında bögelere göre nüfusu</Text>
-        <Text language="de">die Bevölkerung der Türkei nach den Regionen im Jahr 2022</Text>
+        <Text language="de">die Bevölkerung von Italien nach den Regionen im Jahr 2022</Text>
     </Description>
     <Provider>
         Istituto Nazionale di Statistica
@@ -19,8 +19,8 @@
         <Display key="total" lang="de">Bevölkerung</Display>
     </Data>
     <Representation value="total" map="Italy ADM2.geojson">
-        <Color key="0.0">232 233 235</Color>
-        <Color key="1000000">100 141 229</Color>
-        <Color key="1.0">239 100 97</Color>
+        <Color key="r0.0">232 233 235</Color>
+        <Color key="a1000000">100 141 229</Color>
+        <Color key="r1.0">239 100 97</Color>
     </Representation>
 </Relation>

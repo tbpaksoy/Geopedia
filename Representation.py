@@ -163,9 +163,31 @@ def RepresentValuesWithColors(meshes: dict, values: dict, colors: dict = {0.0: [
 def ColorRamp(values: dict, colors: dict) -> dict[str: list]:
     maxVal, minVal = max(values.values()), min(values.values())
     for key in list(colors.keys()):
-        if isinstance(key, int):
-            colors[(key - minVal) / (maxVal - minVal)] = colors[key]
-            del colors[key]
+        match key:
+            case str():
+                if key == "n/a":
+                    continue
+                if key[0] == "r" and "." in key and key[1:].replace(".", "").isdigit():
+                    _key = float(key[1:])
+                    colors[_key] = colors[key]
+                    del colors[key]
+                elif key[0] == "a":
+                    if key[1:].isdigit():
+                        _key = int(key[1:])
+                        colors[(_key - minVal) /
+                               (maxVal - minVal)] = colors[key]
+                        del colors[key]
+                    elif "." in key and key.replace(".", "").isdigit():
+                        _key = float(key[1:])
+                        colors[_key] = colors[key]
+                        del colors[key]
+    minKeyColor, maxKeyColor = min(colors.keys()), max(colors.keys())
+    if minKeyColor < 0 or maxKeyColor > 1:
+        for key in list(colors.keys()):
+            if key == "n/a":
+                continue
+            newKey = (key - minKeyColor) / (maxKeyColor - minKeyColor)
+            colors[newKey] = colors[key]
     normalized = {key: (values[key] - minVal) / (maxVal - minVal)
                   for key in values.keys()}
     colors = dict(sorted(colors.items()))
@@ -176,7 +198,10 @@ def ColorRamp(values: dict, colors: dict) -> dict[str: list]:
 
     for key in normalized:
         for i in range(len(colors) - 1):
-            if normalized[key] >= colorKeys[i] and normalized[key] <= colorKeys[i+1]:
+            if normalized[key] == None:
+                result[key] = colors["n/a"]
+                break
+            elif normalized[key] >= colorKeys[i] and normalized[key] <= colorKeys[i+1]:
                 x, y, z = colorValues[i], colorValues[i+1], normalized[key]
                 z = (z - colorKeys[i]) / (colorKeys[i+1] - colorKeys[i])
                 result[key] = [x[i] + (z) * (y[i] - x[i])

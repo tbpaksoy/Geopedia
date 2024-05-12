@@ -7,21 +7,35 @@ import math
 # Değerleri istenilen tipte çevirmek için
 
 
-def Convert(value, type: str):
-    temp = str(value)
+def Convert(value: str | dict | list, type: str):
+    _value = str(value)
+    if type == None or type == "":
+        return value
+    lambda caster: caster(value)
     match type:
         case "integer" | "int" | "integral":
-            try:
-                return int(temp.replace(",", "").replace(" ", ""))
-            except:
-                return 0
+            caster = int
+            _value = _value.replace(",", "").replace(" ", "")
         case "float" | "real":
-            try:
-                return float(temp.replace(",", "").replace(" ", ""))
-            except:
-                return 0.0
+            caster = float
+            _value = _value.replace(",", "").replace(" ", "")
         case "string" | "str":
-            return temp
+            caster = str
+    match value:
+        case dict():
+            result = {}
+            for key in value:
+                result[key] = caster(value[key])
+            return result
+        case list():
+            result = []
+            for item in value:
+                result.append(caster(item))
+            return result
+    try:
+        return caster(_value)
+    except:
+        return None
 
 
 evaluators = {"sin": math.sin, "log": math.log, "exp": math.exp, "sqrt": math.sqrt,
@@ -258,18 +272,67 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
                     realData.append(processedData[entry][key])
 
     representation = {
-        "Colors": {float(se.attrib["key"]) if "." in se.attrib["key"] else int(se.attrib["key"]): [float(u) if "." in u else float(u) / 255.0 for u in se.text.split(" ")] for se in root.find("Representation").findall("Color")},
+        "Colors": {se.attrib["key"]: [float(t) / 255.0 for t in se.text.split(" ")] for se in root.find("Representation").findall("Color") if "key" in se.attrib},
         "Value": root.find("Representation").attrib["value"],
         "Map": root.find("Representation").attrib["map"],
         "Interval": (min(realData), max(realData)),
         "Display": display,
-        "Borders": [(b.attrib["source"], float(b.attrib["width"]), [int(c) for c in b.attrib["color"].split(" ")]) for b in root.find("Representation").findall("Borders") if "source" in b.attrib and "width" in b.attrib and "color" in b.attrib]
+        "Borders": [(b.attrib["source"], float(b.attrib["width"]), [int(c) for c in b.attrib["color"].split(" ")]) for b in root.find("Representation").findall("Borders") if "source" in b.attrib and "width" in b.attrib and "color" in b.attrib],
+        "LocalNames": {ln.attrib["key"]: ln.text for ln in root.find("Representation").findall("LocalName") if "key" in ln.attrib and "lang" in ln.attrib and ln.attrib["lang"] == lang}
     }
+
     result["Representation"] = representation
 
     # Add the filtered data to the dictionary
     # Filtrelenmiş veriyi sözlüğe ekle
     result["Data"] = processedData
+    return result
+
+
+def GetMultiRelationalData(name: str, lang: str = None) -> dict:
+    if not name.endswith(".xml"):
+        name += ".xml"
+
+    result = {}
+    processedData = {}
+
+    tree = ET.parse(open("Relations\\"+name, encoding="utf-8"))
+    root = tree.getroot()
+
+    groupBy = root.find("Data").find("Group").attrib["by"]
+
+    # Read the data and process it
+    # Veriyi oku ve işle
+    match root.find("Data").attrib["source"].split(".")[-1]:
+        case "csv":
+            c = csv.reader(
+                open("Data\\"+root.find("Data").attrib["source"], encoding="utf-8"))
+            keys = next(c)
+            matches = {c.attrib["key"]: {"value": c.attrib["value"], "convert": c.attrib["convert"] if "convert" in c.attrib else None}
+                       for c in root.find("Data").findall("Match") if "key" in c.attrib and "value" in c.attrib}
+            for row in c:
+                index = keys.index(groupBy)
+                if row[index] not in processedData:
+                    processedData[row[index]] = {}
+                for match in matches:
+                    key = match
+                    value = matches[match]["value"]
+                    if "convert" in matches[match]:
+                        processedData[row[index]][row[keys.index(key)]] = Convert(
+                            row[keys.index(value)], matches[match]["convert"])
+                    else:
+                        processedData[row[index]][row[keys.index(
+                            key)]] = row[keys.index(value)]
+
+    representation = {}
+    representation["Colors"] = {se.attrib["key"]: [float(t) / 255.0 for t in se.text.split(
+        " ")] for se in root.find("Representation").findall("Color") if "key" in se.attrib}
+    representation["Map"] = {m.attrib["key"]: m.attrib["on"] for m in root.find("Representation").findall(
+        "Map") if "key" in m.attrib and "on" in m.attrib}
+    representation["Values"] = {e: processedData[e] for e in processedData}
+    result["Data"] = processedData
+    result["Representation"] = representation
+
     return result
 
 # To get the names of the units in the .geojson file
@@ -281,3 +344,8 @@ def GetUnitNames(file: str) -> list[str]:
         file += ".geojson"
     j = json.load(open("Countries\\"+file, encoding="utf-8"))
     return [i["properties"]["shapeName"] for i in j["features"]]
+
+
+a = GetMultiRelationalData("World Sheep Production", "tr")
+
+print(a["Representation"]["Values"])

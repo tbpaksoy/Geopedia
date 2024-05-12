@@ -1,0 +1,23 @@
+<MultiRelation default="en">
+    <Name>
+        <Text language="en">World Sheep Production</Text>
+        <Text language="tr">Dünya Koyun Üretimi</Text>
+        <Text language="de">Welt Schafproduktion</Text>
+    </Name>
+    <Description>
+        <Text language="en">the Sheep Production of the World by the countries in 2022</Text>
+        <Text language="tr">Dünya'nın 2022 yılında ülkelerine göre koyun üretimi</Text>
+        <Text language="de">die Schafproduktion der Welt nach den Ländern im Jahr 2022</Text>
+    </Description>
+    <Data source="Word Sheep Production.csv">
+        <Group by="Area" />
+        <Match key="Year Code" value="Value" convert="int" />
+    </Data>
+    <Representation value="2019">
+        <Color key="n/a">127 127 127</Color>
+        <Color key="r0.0">255 255 255</Color>
+        <Color key="r1.0">255 127 127</Color>
+        <Map key="Türkiye" on="Turkey ADM0.geojson" />
+        <Map key="Bulgaria" on="Bulgaria ADM0.geojson" />
+    </Representation>
+</MultiRelation>

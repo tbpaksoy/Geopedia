@@ -19,8 +19,19 @@
         <Display key="Population 2022" lang="en">Population</Display>
     </Data>
     <Representation value="Population 2022" map="Belgium ADM1.geojson">
-        <Color key="0.0">232 233 235</Color>
-        <Color key="1000000">100 141 229</Color>
-        <Color key="1.0">239 100 97</Color>
+
+        <LocalName key="Brussels Hoofdstedelijk" lang="tr">Brüksel Başkent Bölgesi</LocalName>
+        <LocalName key="Brussels Hoofdstedelijk" lang="en">Brussels Capital Region</LocalName>
+        <LocalName key="Brussels Hoofdstedelijk" lang="de">Region Brüssel-Hauptstadt</LocalName>
+        <LocalName key="Vlaams Gewest" lang="tr">Flaman Bölgesi</LocalName>
+        <LocalName key="Vlaams Gewest" lang="en">Flemish Region</LocalName>
+        <LocalName key="Vlaams Gewest" lang="de">Flämische Region</LocalName>
+        <LocalName key="Wallonne Gewest" lang="tr">Valonya Bölgesi</LocalName>
+        <LocalName key="Wallonne Gewest" lang="en">Walloon Region</LocalName>
+        <LocalName key="Wallonne Gewest" lang="de">Wallonische Region</LocalName>
+
+        <Color key="r0.0">232 233 235</Color>
+        <Color key="a1000000">100 141 229</Color>
+        <Color key="r1.0">239 100 97</Color>
     </Representation>
 </Relation>

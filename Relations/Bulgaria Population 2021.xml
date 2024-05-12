@@ -19,9 +19,17 @@
         <Display key="2021 Total" lang="en">Population of the Year 2021</Display>
     </Data>
     <Representation value="2021 Total" map="Bulgaria ADM1.geojson">
-        <Color key="0.0">232 233 235</Color>
-        <Color key="1000000">100 141 229</Color>
-        <Color key="1.0">239 100 97</Color>
+        <LocalName key="Pazardzhik" lang="tr">Pazarcık</LocalName>
+        <LocalName key="Kardzhali" lang="tr">Kırcaali</LocalName>
+        <LocalName key="Shumen" lang="tr">Şumnu</LocalName>
+        <LocalName key="Sofia" lang="tr">Sofya</LocalName>
+        <LocalName key="Sofia City" lang="tr">Sofya Şehri</LocalName>
+        <LocalName key="Pleven" lang="tr">Plevne</LocalName>
+        <LocalName key="Plovdiv" lang="tr">Filibe</LocalName>
+        <LocalName key="Ruse" lang="tr">Rusçuk</LocalName>
+        <Color key="r0.0">232 233 235</Color>
+        <Color key="a1000000">100 141 229</Color>
+        <Color key="r1.0">239 100 97</Color>
         <Borders source="Bulgaria ADM1.geojson" width="1" color="127 127 127" />
         <Borders source="Bulgaria ADM0.geojson" width="2.5" color="0 0 0" />
     </Representation>

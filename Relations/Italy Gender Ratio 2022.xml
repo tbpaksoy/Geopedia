@@ -1,0 +1,35 @@
+<Relation default="en">
+    <Name>
+        <Text language="en">2023 Population of Italy</Text>
+        <Text language="tr">İtalya'nın 2022 Nüfusu</Text>
+        <Text language="de">die Bevölkerung 2022 von Italien </Text>
+    </Name>
+    <Description>
+        <Text language="en">the Population of Italy by the regions in 2022</Text>
+        <Text language="tr">İtalya'nın 2023 yılında bögelere göre nüfusu</Text>
+        <Text language="de">die Bevölkerung von Italien nach den Regionen im Jahr 2022</Text>
+    </Description>
+    <Provider>
+        Istituto Nazionale di Statistica
+    </Provider>
+    <Data source="Italy Population.json" by="Territory">
+        <Get key="total" />
+        <Display key="total" lang="tr">Nüfus</Display>
+        <Display key="total" lang="en">Population</Display>
+        <Display key="total" lang="de">Bevölkerung</Display>
+        <Get key="male" />
+        <Display key="male" lang="tr">Erkek Nüfus</Display>
+        <Display key="male" lang="en">Male Population</Display>
+        <Display key="male" lang="de">Männlichen Bövelkerun</Display>
+        <Get key="female" />
+        <Display key="female" lang="tr">Kadın Nüfus</Display>
+        <Display key="female" lang="en">Female Population</Display>
+        <Display key="female" lang="de">Männlichen Bövelkerun</Display>
+        <Calculate key="male_to_female">%male% / %female%</Calculate>
+    </Data>
+    <Representation value="male_to_female" map="Italy ADM2.geojson">
+        <Color key="r0.0">239 137 211</Color>
+        <Color key="a1">255 255 255</Color>
+        <Color key="r1.0">100 146 249</Color>
+    </Representation>
+</Relation>

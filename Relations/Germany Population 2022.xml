@@ -14,14 +14,36 @@
     </Provider>
     <Data source="Germany Population.json" by="Länder">
         <Get key="2022-12-31" />
-        <Display key="2022-12-31" lang="tr">Nüfus</Display>
-        <Display key="2022-12-31" lang="de">Bevölkerung</Display>
-        <Display key="2022-12-31" lang="en">Population</Display>
+        <Display key="2022-12-31" lang="tr">2022 Yılı Nüfusu</Display>
+        <Display key="2022-12-31" lang="de">Bevölkerung des Jahres 2022</Display>
+        <Display key="2022-12-31" lang="en">Population of the Year 2022</Display>
+        <Get key="2013-12-31" />
+        <Display key="2013-12-31" lang="tr">2013 Yılı Nüfusu</Display>
+        <Display key="2013-12-31" lang="de">Bevölkerung des Jahres 2013</Display>
+        <Display key="2013-12-31" lang="en">Population of the Year 2013</Display>
+        <Calculate key="delta_2022_2013">%2022-12-31% - %2013-12-31%</Calculate>
+        <Display key="delta_2022_2013" lang="tr">2013-2022 Nüfus Değişimi</Display>
+        <Display key="delta_2022_2013" lang="de">Bevölkerungsänderung 2013-2022</Display>
+        <Display key="delta_2022_2013" lang="en">Population Change 2013-2022</Display>
     </Data>
     <Representation value="2022-12-31" map="Germany ADM1.geojson">
-        <Color key="0.0">232 233 235</Color>
-        <Color key="1000000">100 141 229</Color>
-        <Color key="1.0">239 100 97</Color>
+        <LocalName key="Bayern" lang="tr">Bavyera</LocalName>
+        <LocalName key="Bayern" lang="en">Bavaria</LocalName>
+        <LocalName key="Nordrhein-Westfalen" lang="tr">Kuzey Ren Vestfalya</LocalName>
+        <LocalName key="Nordrhein-Westfalen" lang="en">North Rhine-Westphalia</LocalName>
+        <LocalName key="Rheinland-Pfalz" lang="tr">Renanya-Palatina</LocalName>
+        <LocalName key="Rheinland-Pfalz" lang="en">Rhineland-Palatinate</LocalName>
+        <LocalName key="Sachsen" lang="tr">Saksonya</LocalName>
+        <LocalName key="Sachsen" lang="en">Saxony</LocalName>
+        <LocalName key="Sachsen-Anhalt" lang="tr">Saksonya-Anhalt</LocalName>
+        <LocalName key="Sachsen-Anhalt" lang="en">Saxony-Anhalt</LocalName>
+        <LocalName key="Thüringen" lang="tr">Türingya</LocalName>
+        <LocalName key="Thüringen" lang="en">Thuringia</LocalName>
+        <LocalName key="Niedersachsen" lang="tr">Aşağı Saksonya</LocalName>
+        <LocalName key="Niedersachsen" lang="en">Lower Saxony</LocalName>
+        <Color key="r0.0">232 233 235</Color>
+        <Color key="a1000000">100 141 229</Color>
+        <Color key="r1.0">239 100 97</Color>
         <Borders source="Germany ADM1.geojson" width="1" color="127 127 127" />
         <Borders source="Germany ADM0.geojson" width="2.5" color="0 0 0" />
     </Representation>

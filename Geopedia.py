@@ -21,8 +21,42 @@ ren_win: vtk.vtkRenderWindow = plotter.ren_win
 renderer: vtk.vtkRenderer = ren_win.GetRenderers().GetFirstRenderer()
 interactor = ren_win.GetInteractor()
 
+# To adjust the font
+# Yazı tipini ayarlamak için
+
+
+def SetFont():
+    with dpg.font_registry():
+        font = dpg.add_font("GUI/Font/unifont-15.1.05.otf", 15)
+        dpg.add_font_range(32, 7935, parent=font)
+    dpg.bind_font(font)
+
+# To adjust the theme
+# Temayı ayarlamak için
+
+
+def SetTheme():
+    with dpg.theme() as theme:
+        with dpg.theme_component(dpg.mvAll):
+            dpg.add_theme_color(dpg.mvThemeCol_Text,
+                                (24, 209, 219, 255), category=dpg.mvThemeCat_Core)
+            dpg.add_theme_color(dpg.mvThemeCol_WindowBg,
+                                (42, 42, 42, 255), category=dpg.mvThemeCat_Core)
+            dpg.add_theme_color(dpg.mvThemeCol_NavWindowingHighlight,
+                                (42, 42, 42, 255), category=dpg.mvThemeCat_Core)
+            dpg.add_theme_color(dpg.mvThemeCol_TitleBgActive,
+                                (60, 60, 60, 255), category=dpg.mvThemeCat_Core)
+            dpg.add_theme_color(dpg.mvThemeCol_TitleBg,
+                                (42, 42, 42, 255), category=dpg.mvThemeCat_Core)
+
+            dpg.add_theme_style(dpg.mvStyleVar_WindowRounding, 12, 12)
+    dpg.bind_theme(theme)
+
 
 mode = "view"
+
+# To set the mode
+# Modu ayarlamak için
 
 
 def SetMode(sender):
@@ -30,9 +64,14 @@ def SetMode(sender):
     mode = dpg.get_value(sender)
 
 
+# To select a mode
+# Bir mod seçmek için
 dpg.create_context()
 dpg.create_viewport()
 dpg.setup_dearpygui()
+
+SetFont()
+SetTheme()
 
 win = dpg.add_window(label="Geopedia", width=500,
                      height=500, no_resize=True, no_move=True, no_close=True, no_collapse=True)
@@ -50,14 +89,25 @@ dpg.destroy_context()
 
 match mode.lower():
     case "view":
+        # To keep the selected files
+        # Seçilen dosyaları tutmak için
         selectedFiles: list[str] = []
+        # To keep temporary selected file
+        # Geçici seçilen dosyayı tutmak için
         selectedFile: str
+        # To keep the selected language
+        # Seçilen dili tutmak için
         lang: str = "en"
 
         dpg.create_context()
         dpg.create_viewport(width=400, height=800)
         dpg.setup_dearpygui()
 
+        SetFont()
+        SetTheme()
+
+        # Get the files
+        # Dosyaları al
         files = os.listdir("Relations")
 
         window = dpg.add_window(width=400, height=800, pos=[
@@ -103,6 +153,10 @@ match mode.lower():
         # To keep the values
         # Değerleri tutmak için
         displayValues = {}
+
+        # To keep the local names
+        # Yerel adları tutmak için
+        localNames = {}
 
         # Create a picker
         # Bir seçici oluştur
@@ -161,7 +215,10 @@ match mode.lower():
                     adm1 = key
                     break
             global nameTextActor, valueTextActor, displayValues
-            nameTextActor.SetInput(adm1)
+            if adm1 in localNames.keys():
+                nameTextActor.SetInput(localNames[adm1])
+            else:
+                nameTextActor.SetInput(adm1)
             valueText = ""
             for key in data[adm1].keys():
                 valueText += key + " : " + str(data[adm1][key]) + "\n"
@@ -257,9 +314,12 @@ match mode.lower():
 
             # Store the values
             # Değerleri sakla
-            global displayValues
+            global displayValues, localNames
             for adm1 in adm1s.keys():
                 displayValues[adm1] = relation["Data"][adm1]
+
+            for name in representation["LocalNames"]:
+                localNames[name] = representation["LocalNames"][name]
 
             for key in display:
                 for adm1 in adm1s.keys():
@@ -397,10 +457,7 @@ match mode.lower():
             dpg.create_viewport()
             dpg.setup_dearpygui()
 
-            with dpg.font_registry():
-                font = dpg.add_font("GUI/Font/FreeMono.ttf", 15)
-                dpg.add_font_range(32, 7935, parent=font)
-            dpg.bind_font(font)
+            SetFont()
 
             global mainWindow, files, saveUnitAs
 
@@ -423,8 +480,6 @@ match mode.lower():
             dpg.add_button(label="Add key", callback=lambda: AddKey(),
                            parent=mainWindow, width=100, height=30)
 
-            dpg.bind_font(font)
-
             dpg.show_viewport()
             dpg.start_dearpygui()
             dpg.destroy_context()
@@ -433,10 +488,8 @@ match mode.lower():
             global saveUnitAs, inputData
             with open("Data/test.json", "w") as file:
                 json.dump(inputData, file)
-        if __name__ == "__main__":
-            p1 = Process(target=RunKeyEditScreen)
-            p1.start()
-            p1.join()
+
+        RunKeyEditScreen()
     case "relation edit":
 
         # dearpygui related
@@ -449,6 +502,8 @@ match mode.lower():
             dpg.create_context()
             dpg.create_viewport()
             dpg.setup_dearpygui()
+
+            SetFont()
 
             global mainWindow, nameSection, descriptionSection
 
@@ -529,5 +584,5 @@ match mode.lower():
 
         representation = xml.etree.ElementTree.SubElement(
             relation, "Representation")
-        if __name__ == "__main__":
-            RunRelationEditWindow()
+
+        RunRelationEditWindow()

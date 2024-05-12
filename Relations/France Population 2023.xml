@@ -17,10 +17,15 @@
         <Display key="Total" lang="tr">Nüfus</Display>
         <Display key="Total" lang="en">Population</Display>
         <Display key="Total" lang="de">Bevölkerung</Display>
+        <Calculate key="Non-Adult Ratio">%0 à 19 ans% / %Total%</Calculate>
+        <Display key="Non-Adult Ratio" lang="tr">Yetişkin Olmayan Oranı</Display>
+        <Display key="Non-Adult Ratio" lang="de">Nicht-Erwachsenen-Verhältnis</Display>
     </Data>
     <Representation value="Total" map="France ADM1.geojson">
-        <Color key="0.0">232 233 235</Color>
-        <Color key="1000000">100 141 229</Color>
-        <Color key="1.0">239 100 97</Color>
+        <Color key="r0.0">232 233 235</Color>
+        <Color key="a1000000">100 141 229</Color>
+        <Color key="r1.0">239 100 97</Color>
+        <Borders source="France ADM1" width="1" color="127 127 127" />
+        <Borders source="France ADM0" width="2.5" color="0 0 0" />
     </Representation>
 </Relation>

@@ -1,0 +1,50 @@
+<Relation default="en">
+    <Name>
+        <Text language="en">2022 Population of Austria</Text>
+        <Text language="tr">Avusturya'nın 2022 Nüfusu</Text>
+        <Text language="de">die Bevölkerung 2022 von Österreich </Text>
+    </Name>
+    <Description>
+        <Text language="en">the Population of Austria by the states in 2022</Text>
+        <Text language="tr">Avusturya'nın 2022 yılında eyaletlere göre nüfusu</Text>
+        <Text language="de">die Bevölkerung von Österreich nach den Bündeslandern im Jahr 2022</Text>
+    </Description>
+    <Provider>
+        Statistik Austria
+    </Provider>
+    <Data source="Austria Population.json" by="Bundesland">
+        <Get key="2022" />
+        <Display key="2022" lang="tr">2022 Nüfusu</Display>
+        <Display key="2022" lang="de">Bevölkerung des Jahres 2022</Display>
+        <Display key="2022" lang="en">Population of the Year 2022</Display>
+        <Get key="2020" />
+        <Display key="2020" lang="tr">2020 Nüfusu</Display>
+        <Display key="2020" lang="de">Bevölkerung des Jahres 2020</Display>
+        <Display key="2020" lang="en">Population of the Year 2020</Display>
+        <Calculate key="delta_2022_2020">%2022% - %2020%</Calculate>
+        <Display key="delta_2022_2020" lang="tr">2020 ile 2022 Yılları Arasında Nüfus Farkı</Display>
+        <Display key="delta_2022_2020" lang="de">Bövelkerungsänderung der Jahre Zwischen 2020 und
+            2022</Display>
+        <Display key="delta_2022_2020" lang="en">Population Change Between Year 2020 and 2022</Display>
+    </Data>
+    <Representation value="delta_2022_2020" map="Austria ADM1.geojson">
+
+        <LocalName key="Wien" lang="tr">Viyana</LocalName>
+        <LocalName key="Niederösterreich" lang="tr">Aşağı Avusturya</LocalName>
+        <LocalName key="Oberösterreich" lang="tr">Yukarı Avusturya</LocalName>
+        <LocalName key="Steiermark" lang="tr">Steyrmark</LocalName>
+        <LocalName key="Kärnten" lang="tr">Karintiya</LocalName>
+
+        <LocalName key="Wien" lang="en">Vienna</LocalName>
+        <LocalName key="Niederösterreich" lang="en">Lower Austria</LocalName>
+        <LocalName key="Oberösterreich" lang="en">Upper Austria</LocalName>
+        <LocalName key="Steiermark" lang="en">Styria</LocalName>
+        <LocalName key="Kärnten" lang="en">Carinthia</LocalName>
+
+        <Color key="r0.0">255 0 0</Color>
+        <Color key="a0">255 255 255</Color>
+
+        <Borders source="Austria ADM1.geojson" width="1" color="127 127 127" />
+        <Borders source="Austria ADM0.geojson" width="2.5" color="0 0 0" />
+    </Representation>
+</Relation>
