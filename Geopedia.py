@@ -1,16 +1,15 @@
 import xml.etree
 import xml.etree.ElementTree
 import pyvista as pv
-import pyvista.plotting.actor as pvpActor
 import vtk
 import Data
 import Representation
 import os
-import random
 import dearpygui.dearpygui as dpg
-from multiprocessing import Process
 import json
 import xml
+import trimesh as tm
+import copy
 
 # Create a plotter window
 # Bir çizim penceresi oluştur
@@ -220,6 +219,8 @@ match mode.lower():
             else:
                 nameTextActor.SetInput(adm1)
             valueText = ""
+            if adm1 not in displayValues.keys():
+                return
             for key in data[adm1].keys():
                 valueText += key + " : " + str(data[adm1][key]) + "\n"
             valueTextActor.SetInput(valueText)
@@ -233,115 +234,169 @@ match mode.lower():
 
             # Get the relational data
             # İlişkisel veriyi al
-            relation = Data.GetRelationalData(file, lang)
-            units = list(relation["Data"].keys())
+            relation = Data.AnalyzeXML("Relations/" + file, lang)
+            units = []
 
-            # Store the data
-            # Veriyi sakla
-            global data
-            for unit in units:
-                data[unit] = relation["Data"][unit]
+            match relation["Type"]:
+                case "Relational":
 
-            representation = relation["Representation"]
-            adm1s = Representation.BuildADM(
-                representation["Map"].split(".")[0], units)
+                    units = list(relation["Data"].keys())
 
-            colors = representation["Colors"]
+                    # Store the data
+                    # Veriyi sakla
+                    global data
+                    for unit in units:
+                        data[unit] = relation["Data"][unit]
 
-            # Represent the data with colors
-            # Veriyi renklerle temsil et
-            meshesAndColors = Representation.RepresentValuesWithColors(
-                adm1s, {item: relation["Data"][item][representation["Value"]] for item in relation["Data"].keys()}, colors)
+                    representation = relation["Representation"]
+                    adm1s = Representation.BuildADM(
+                        representation["Map"].split(".")[0], units)
 
-            borders = representation["Borders"]
+                    colors = representation["Colors"]
 
-            for border in borders:
-                lines = Representation.BuildADMBorders(border[0])
-                for key in lines.keys():
-                    for line in lines[key]:
-                        _line: pv.PolyData = line
-                        plotter.add_lines(
-                            _line.points, color=border[2], width=border[1], connected=True)
+                    # Represent the data with colors
+                    # Veriyi renklerle temsil et
+                    meshesAndColors = Representation.RepresentValuesWithColors(
+                        adm1s, {item: relation["Data"][item][representation["Value"]] for item in relation["Data"].keys()}, colors)
 
-            # Create a lookup table
-            # Bir arama tablosu oluştur
-            lu = vtk.vtkLookupTable()
-            lu.SetNumberOfTableValues(256)
-            lu.SetRange(representation["Interval"][0] /
-                        1e6, representation["Interval"][1] / 1e6)
-            for key in range(256):
-                color = Representation.ColorRampSample(
-                    colors, key / 255.0)
-                lu.SetTableValue(key, color[0], color[1], color[2])
+                    borders = representation["Borders"]
 
-            # Add the scalar bar as legend
-            # Lejant olarak skaler çubuğu ekle
-            sca = vtk.vtkScalarBarActor()
+                    for border in borders:
+                        lines = Representation.BuildADMBorders(border[0])
+                        for key in lines.keys():
+                            for line in lines[key]:
+                                _line: pv.PolyData = line
+                                plotter.add_lines(
+                                    _line.points, color=border[2], width=border[1], connected=True)
 
-            sca.SetTitle(file.split(".")[0] + "\n")
-            sca.SetLookupTable(lu)
-            sca.SetLabelFormat("%1.2fM")
-            sca.SetUnconstrainedFontSize(True)
+                    # Create a lookup table
+                    # Bir arama tablosu oluştur
+                    lu = vtk.vtkLookupTable()
+                    lu.SetNumberOfTableValues(256)
+                    lu.SetRange(representation["Interval"][0] /
+                                1e6, representation["Interval"][1] / 1e6)
+                    for key in range(256):
+                        color = Representation.ColorRampSample(
+                            colors, key / 255.0)
+                        lu.SetTableValue(key, color[0], color[1], color[2])
 
-            # Set the text properties for titles
-            # Başlıklar için metin özelliklerini ayarla
-            ttp = vtk.vtkTextProperty()
-            ttp.SetFontSize(12)
-            ttp.SetColor(0.0, 0.0, 0.0)
-            sca.SetTitleTextProperty(ttp)
+                    # Add the scalar bar as legend
+                    # Lejant olarak skaler çubuğu ekle
+                    sca = vtk.vtkScalarBarActor()
 
-            # Set orientation to horizontal
-            # Yatay olarak yönlendirme ayarla
-            sca.SetOrientationToHorizontal()
+                    sca.SetTitle(file.split(".")[0] + "\n")
+                    sca.SetLookupTable(lu)
+                    sca.SetLabelFormat("%1.2fM")
+                    sca.SetUnconstrainedFontSize(True)
 
-            # Set the text properties for labels
-            # Etiketler için metin özelliklerini ayarla
-            ltp = vtk.vtkTextProperty()
-            ltp.SetFontSize(8)
-            ltp.SetColor(0.0, 0.0, 0.0)
-            sca.SetLabelTextProperty(ltp)
+                    # Set the text properties for titles
+                    # Başlıklar için metin özelliklerini ayarla
+                    ttp = vtk.vtkTextProperty()
+                    ttp.SetFontSize(12)
+                    ttp.SetColor(0.0, 0.0, 0.0)
+                    sca.SetTitleTextProperty(ttp)
 
-            global currentLegendCount
-            sca.SetPosition(0.05 + 0.2 * (currentLegendCount %
-                            3), int(currentLegendCount / 3) * 0.1)
-            sca.SetWidth(0.175)
-            sca.SetHeight(0.125)
-            currentLegendCount += 1
-            actors[file] = sca
-            plotter.add_actor(sca)
+                    # Set orientation to horizontal
+                    # Yatay olarak yönlendirme ayarla
+                    sca.SetOrientationToHorizontal()
 
-            display = representation["Display"]
+                    # Set the text properties for labels
+                    # Etiketler için metin özelliklerini ayarla
+                    ltp = vtk.vtkTextProperty()
+                    ltp.SetFontSize(8)
+                    ltp.SetColor(0.0, 0.0, 0.0)
+                    sca.SetLabelTextProperty(ltp)
 
-            # Store the values
-            # Değerleri sakla
-            global displayValues, localNames
-            for adm1 in adm1s.keys():
-                displayValues[adm1] = relation["Data"][adm1]
+                    global currentLegendCount
+                    sca.SetPosition(0.05 + 0.2 * (currentLegendCount %
+                                    3), int(currentLegendCount / 3) * 0.1)
+                    sca.SetWidth(0.175)
+                    sca.SetHeight(0.125)
+                    currentLegendCount += 1
+                    actors[file] = sca
+                    plotter.add_actor(sca)
 
-            for name in representation["LocalNames"]:
-                localNames[name] = representation["LocalNames"][name]
+                    display = representation["Display"]
 
-            for key in display:
-                for adm1 in adm1s.keys():
-                    if key in display:
-                        displayValues[adm1][display[key]
-                                            ] = displayValues[adm1][key]
-                        del displayValues[adm1][key]
+                    # Store the values
+                    # Değerleri sakla
+                    global displayValues, localNames
+                    for adm1 in adm1s.keys():
+                        displayValues[adm1] = relation["Data"][adm1]
 
-            # Add the meshes to the plotter
-            # Ağları çizim penceresine ekle
-            for key in meshesAndColors.keys():
-                # Add the mesh to the plotter
-                # Meshi çizim penceresine ekle
-                subactors = []
-                for mesh in meshesAndColors[key][0]:
-                    actor = plotter.add_mesh(
-                        mesh, color=meshesAndColors[key][1])
-                    subactors.append(actor)
-                actors[key] = subactors
+                    for name in representation["LocalNames"]:
+                        localNames[name] = representation["LocalNames"][name]
+
+                    for key in display:
+                        for adm1 in adm1s.keys():
+                            if key in display:
+                                displayValues[adm1][display[key]
+                                                    ] = displayValues[adm1][key]
+                                del displayValues[adm1][key]
+
+                    # Add the meshes to the plotter
+                    # Ağları çizim penceresine ekle
+                    for key in meshesAndColors.keys():
+                        # Add the mesh to the plotter
+                        # Meshi çizim penceresine ekle
+                        subactors = []
+                        for mesh in meshesAndColors[key][0]:
+                            actor = plotter.add_mesh(
+                                mesh, color=meshesAndColors[key][1])
+                            subactors.append(actor)
+                        actors[key] = subactors
+                case "MultiRelational":
+
+                    representation = relation["Representation"]
+                    meshes = {}
+                    for key in representation["Map"]:
+                        val = Representation.BuildADM(
+                            representation["Map"][key])
+                        for a in val:
+                            temp = []
+                            for b in val[a]:
+                                temp += b
+                            meshes[key] = temp
+                    initKey = relation["Init"]
+                    _data = relation["Data"]
+                    centers = {}
+                    meshesAndColors = Representation.RepresentValuesWithColors(
+                        meshes, {key: _data[key][initKey] for key in _data if initKey in _data[key]}, representation["Colors"])
+                    for mc in meshesAndColors:
+                        _temp = []
+                        for mesh in meshesAndColors[mc]:
+                            plotter.add_mesh(
+                                meshesAndColors[mc][0], color=meshesAndColors[mc][1])
+                            for v in meshesAndColors[mc][0].vertices:
+                                _temp.append(v)
+                            centers[mc] = list(sum(_temp) / len(_temp))
+                    for c in centers.values():
+                        sphere = tm.creation.icosphere(
+                            radius=0.15)
+                        sphere.apply_translation(c)
+                        sphere.apply_translation([0, 0, 0.4])
+                        plotter.add_mesh(sphere, color=[0, 0, 0])
+
+                    arrows: list = representation["Arrows"]
+                    for arrow in arrows:
+                        start, end = copy.deepcopy(centers[arrow[0]]), copy.deepcopy(
+                            centers[arrow[1]])
+                        start[2] += 0.4
+                        end[2] += 0.4
+                        arrow_shape = vtk.vtkLineSource()
+                        arrow_shape.SetPoint1(start)
+                        arrow_shape.SetPoint2(end)
+
+                        mapper = vtk.vtkPolyDataMapper()
+                        mapper.SetInputConnection(arrow_shape.GetOutputPort())
+
+                        actor = vtk.vtkActor()
+                        actor.SetMapper(mapper)
+
+                        renderer.AddActor(actor)
 
         for file in selectedFiles:
-            ShowData(file, lang)
+            ShowData(file, lang=lang)
         # Show the plotter window
         # Çizim penceresini göster
         ren_win.MakeCurrent()

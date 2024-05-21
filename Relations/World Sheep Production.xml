@@ -13,11 +13,49 @@
         <Group by="Area" />
         <Match key="Year Code" value="Value" convert="int" />
     </Data>
-    <Representation value="2019">
+    <Representation value="2021">
         <Color key="n/a">127 127 127</Color>
         <Color key="r0.0">255 255 255</Color>
         <Color key="r1.0">255 127 127</Color>
         <Map key="Türkiye" on="Turkey ADM0.geojson" />
         <Map key="Bulgaria" on="Bulgaria ADM0.geojson" />
+        <Map key="Greece" on="Greece ADM0.geojson" />
+        <Map key="Austria" on="Austria ADM0.geojson" />
+        <Map key="United Kingdom of Great Britain and Northern Ireland"
+            on="United Kingdom ADM0.geojson" />
+        <Map key="Germany" on="Germany ADM0.geojson" />
+        <Map key="Azerbaijan" on="Azerbaijan ADM0.geojson" />
+        <Map key="Russian Federation" on="Russia ADM0.geojson" />
+        <Map key="Ukraine" on="Ukraine ADM0.geojson" />
+        <Map key="United States of America" on="USA ADM0.geojson" />
+        <Map key="Albania" on="Albania ADM0.geojson" />
+        <Map key="Argentina" on="Argentina ADM0.geojson" />
+        <Map key="Brazil" on="Brazil ADM0.geojson" />
+        <Map key="China" on="China ADM0.geojson" />
+        <Map key="Egypt" on="Egypt ADM0.geojson" />
+        <Map key="Estonia" on="Estonia ADM0.geojson" />
+        <Map key="France" on="France ADM0.geojson" />
+        <Map key="Georgia" on="Georgia ADM0.geojson" />
+        <Map key="Italy" on="Italy ADM0.geojson" />
+        <Map key="Kenya" on="Kenya ADM0.geojson" />
+        <Map key="Mexico" on="Mexico ADM0.geojson" />
+        <Map key="Morocco" on="Morocco ADM0.geojson" />
+        <Map key="Mongolia" on="Mongolia ADM0.geojson" />
+        <Map key="Poland" on="Poland ADM0.geojson" />
+        <Map key="Romania" on="Romania ADM0.geojson" />
+        <Map key="South Africa" on="South Africa ADM0.geojson" />
+        <Map key="Republic of Korea" on="South Korea ADM0.geojson" />
+        <Map key="Spain" on="Spain ADM0.geojson" />
+        <Map key="Spain" on="Spain ADM0.geojson" />
+        <Map key="Vietnam" on="Vietnam ADM0.geojson" />
+        <Map key="Iraq" on="Iraq ADM0.geojson" />
+        <Map key="Cuba" on="Cuba ADM0.geojson" />
+        <Map key="Democratic People's Republic of Korea" on="North Korea ADM0.geojson" />
+        <Map key="Armenia" on="Armenia ADM0.geojson" />
+        <Map key="Netherlands" on="Netherlands ADM0.geojson" />
+        <Map key="Slovakia" on="Slovakia ADM0.geojson" />
+        <Map key="Czechia" on="Czechia ADM0.geojson" />
+        <Map key="Slovenia" on="Slovenia ADM0.geojson" />
+
     </Representation>
 </MultiRelation>

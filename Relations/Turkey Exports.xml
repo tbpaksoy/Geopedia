@@ -1,0 +1,85 @@
+<MultiRelation default="tr">
+    <Name>
+        <Text language="en">Turkey Exports</Text>
+        <Text language="tr">Türkiye İhracatı</Text>
+        <Text language="de">Türkei Exporte</Text>
+    </Name>
+    <Description>
+        <Text language="en">the Exports of Turkey by the countries in 2022</Text>
+        <Text language="tr">Türkiye'nin 2022 yılında ülkelerine göre ihracatı</Text>
+        <Text language="de">die Exporte der Türkei nach den Ländern im Jahr 2022</Text>
+    </Description>
+    <Data source="Turkey Exports.csv">
+        <Group by="country" />
+        <Convert key="2023" to="int" />
+    </Data>
+    <Representation value="2023">
+        <Color key="r0.0">255 255 255</Color>
+        <Color key="r1.0">40 201 67</Color>
+        <Color key="n/a">127 127 127</Color>
+        <Map key="Almanya" on="Germany ADM0.geojson" />
+        <Map key="ABD" on="USA ADM0.geojson" />
+        <Map key="Birleşik Krallık" on="United Kingdom ADM0.geojson" />
+        <Map key="İtalya" on="Italy ADM0.geojson" />
+        <Map key="Fransa" on="France ADM0.geojson" />
+        <Map key="İspanya" on="Spain ADM0.geojson" />
+        <Map key="Hollanda" on="Netherlands ADM0.geojson" />
+        <Map key="Çin" on="China ADM0.geojson" />
+        <Map key="Rusya Federasyonu" on="Russia ADM0.geojson" />
+        <Map key="İsviçre" on="Switzerland ADM0.geojson" />
+        <Map key="Belçika" on="Belgium ADM0.geojson" />
+        <Map key="Meksika" on="Mexico ADM0.geojson" />
+        <Map key="Vietnam" on="Vietnam ADM0.geojson" />
+        <Map key="Brezilya" on="Brazil ADM0.geojson" />
+        <Map key="Fas" on="Morocco ADM0.geojson" />
+        <Map key="Avusturya" on="Austria ADM0.geojson" />
+        <Map key="Polonya" on="Poland ADM0.geojson" />
+        <Map key="Yunanistan" on="Greece ADM0.geojson" />
+        <Map key="Afganistan" on="Afghanistan ADM0.geojson" />
+        <Map key="Azerbaycan" on="Azerbaijan ADM0.geojson" />
+        <Map key="Portekiz" on="Portugal ADM0.geojson" />
+        <Map key="Moğolistan" on="Mongolia ADM0.geojson" />
+        <Map key="Venezuela" on="Venezuela ADM0.geojson" />
+        <Map key="Suriye" on="Syria ADM0.geojson" />
+        <Map key="Kuzey Kore" on="North Korea ADM0.geojson" />
+        <Map key="Suudi Arabistan" on="Saudi Arabia ADM0.geojson" />
+        <Map key="Güney Kore" on="South Korea ADM0.geojson" />
+        <Map key="Güney Afrika Cumhuriyeti" on="South Africa ADM0.geojson" />
+        <Map key="Irak" on="Iraq ADM0.geojson" />
+        <Map key="Ermenistan" on="Armenia ADM0.geojson" />
+        <Map key="Bulgaristan" on="Bulgaria ADM0.geojson" />
+        <Map key="Arjantin" on="Argentina ADM0.geojson" />
+        <Map key="Arnavutluk" on="Albania ADM0.geojson" />
+        <Map key="Romanya" on="Romania ADM0.geojson" />
+        <Map key="Ukrayna" on="Ukraine ADM0.geojson" />
+        <Map key="Estonya" on="Estonia ADM0.geojson" />
+        <Map key="Kazakistan" on="Kazakhstan ADM0.geojson" />
+        <Map key="Özbekistan" on="Uzbekistan ADM0.geojson" />
+        <Map key="Angola" on="Angola ADM0.geojson" />
+        <Map key="Mısır" on="Egypt ADM0.geojson" />
+        <Map key="Nepal" on="Nepal ADM0.geojson" />
+        <Map key="Uruguay" on="Uruguay ADM0.geojson" />
+        <Map key="Kenya" on="Kenya ADM0.geojson" />
+        <Map key="İran" on="Iran ADM0.geojson" />
+        <Map key="Çekya" on="Czechia ADM0.geojson" />
+        <Map key="Pakistan" on="Pakistan ADM0.geojson" />
+        <Map key="Cezayir" on="Algeria ADM0.geojson" />
+        <Map key="Belarus" on="Belarus ADM0.geojson" />
+        <Map key="İsveç" on="Sweden ADM0.geojson" />
+        <Map key="Slovakya" on="Slovakia ADM0.geojson" />
+        <Map key="Slovenya" on="Slovenia ADM0.geojson" />
+        <Map key="Türkiye" on="Turkey ADM0.geojson" />
+        <Arrow from="Türkiye" to="Almanya" />
+        <Arrow from="Türkiye" to="ABD" />
+        <Arrow from="Türkiye" to="Birleşik Krallık" />
+        <Arrow from="Türkiye" to="İtalya" />
+        <Arrow from="Türkiye" to="Fransa" />
+        <Arrow from="Türkiye" to="İspanya" />
+        <Arrow from="Türkiye" to="Hollanda" />
+        <Arrow from="Türkiye" to="Çin" />
+        <Arrow from="Türkiye" to="Rusya Federasyonu" />
+        <Arrow from="Türkiye" to="İsviçre" />
+        <Arrow from="Türkiye" to="Belçika" />
+
+    </Representation>
+</MultiRelation>

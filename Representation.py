@@ -157,16 +157,19 @@ def RepresentValuesWithColors(meshes: dict, values: dict, colors: dict = {0.0: [
     # Create the color representation
     # Renk temsilini oluştur
     temp = ColorRamp(values, colors)
-    return {key: (meshes[key], temp[key]) for key in values.keys() if key in meshes.keys() and key in temp.keys()}
+    return {key: (meshes[key], temp[key])if key in meshes.keys() and key in temp.keys() else (meshes[key], temp[None]) for key in meshes.keys()}
 
 
 def ColorRamp(values: dict, colors: dict) -> dict[str: list]:
+    hasNa = False
+    if "n/a" in colors:
+        na = colors["n/a"]
+        del colors["n/a"]
+        hasNa = True
     maxVal, minVal = max(values.values()), min(values.values())
     for key in list(colors.keys()):
         match key:
             case str():
-                if key == "n/a":
-                    continue
                 if key[0] == "r" and "." in key and key[1:].replace(".", "").isdigit():
                     _key = float(key[1:])
                     colors[_key] = colors[key]
@@ -184,14 +187,13 @@ def ColorRamp(values: dict, colors: dict) -> dict[str: list]:
     minKeyColor, maxKeyColor = min(colors.keys()), max(colors.keys())
     if minKeyColor < 0 or maxKeyColor > 1:
         for key in list(colors.keys()):
-            if key == "n/a":
-                continue
             newKey = (key - minKeyColor) / (maxKeyColor - minKeyColor)
             colors[newKey] = colors[key]
     normalized = {key: (values[key] - minVal) / (maxVal - minVal)
                   for key in values.keys()}
     colors = dict(sorted(colors.items()))
-    result = {}
+    result = {"n/a": na if hasNa else None,
+              None: na if hasNa else None}
 
     colorKeys = list(colors.keys())
     colorValues = list(colors.values())

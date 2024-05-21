@@ -96,45 +96,19 @@ def FilterData(data: dict, key: str, filter: str | int | float | list[str], oper
 # .xml dosyasından veri almak için
 
 
-def GetRelationalData(name: str, lang: str = None) -> dict:
-    # If the file name does not contain ".xml", add it
-    # Dosya adı ".xml" içermiyorsa, ekle
-    if not name.endswith(".xml"):
-        name += ".xml"
-
+def GetRelationalData(root: ET.Element, lang: str = None) -> dict:
     processedData = {}
-
-    # Get data from .xml
-    # .xml dosyasından veri al
-    tree = ET.parse(open("Relations\\"+name, encoding="utf-8"))
-    root = tree.getroot()
-
     # Create a dictionary to store the data
     # Veriyi saklamak için bir sözlük oluştur
-    result = {}
+    result = {"Type": "Relational"}
     default = root.attrib["default"]
     # If the language is not specified, get the default language
     # Dil belirtilmemişse, varsayılan dili al
-    if lang is None:
+    if lang == None:
         lang = default
-        for child in root.find("Name").findall("Text"):
-            if ("language" in child.attrib and child.attrib["language"] == default) or ("lang" in child.attrib and child.attrib["lang"] == default):
-                result["Name"] = child.text
-        lang = default = root.find("Description").attrib["default"]
-        for child in root.find("Description").findall("Text"):
-            if ("language" in child.attrib and child.attrib["language"] == default) or ("lang" in child.attrib and child.attrib["lang"] == default):
-                result["Description"] = child.text
-
-    # If the language is specified, get the data in that language
-    # Dil belirtilmişse, o dildeki veriyi al
-    else:
-        for child in root.find("Name").findall("Text"):
-            if ("language" in child.attrib and child.attrib["language"] == default) or ("lang" in child.attrib and child.attrib["lang"] == default):
-                result["Name"] = child.text
-        for child in root.find("Description").findall("Text"):
-            if child.attrib["language"] == lang:
-                result["Description"] = child.text
-
+    for i in root.find("Name").findall("Text"):
+        if i.attrib["language"] == lang:
+            result["Name"] = i.text
     # Get the filters
     # Filtreleri al
     filters = []
@@ -289,15 +263,9 @@ def GetRelationalData(name: str, lang: str = None) -> dict:
     return result
 
 
-def GetMultiRelationalData(name: str, lang: str = None) -> dict:
-    if not name.endswith(".xml"):
-        name += ".xml"
-
-    result = {}
+def GetMultiRelationalData(root: ET.Element, lang: str = None) -> dict:
+    result = {"Type": "MultiRelational"}
     processedData = {}
-
-    tree = ET.parse(open("Relations\\"+name, encoding="utf-8"))
-    root = tree.getroot()
 
     groupBy = root.find("Data").find("Group").attrib["by"]
 
@@ -310,26 +278,43 @@ def GetMultiRelationalData(name: str, lang: str = None) -> dict:
             keys = next(c)
             matches = {c.attrib["key"]: {"value": c.attrib["value"], "convert": c.attrib["convert"] if "convert" in c.attrib else None}
                        for c in root.find("Data").findall("Match") if "key" in c.attrib and "value" in c.attrib}
-            for row in c:
-                index = keys.index(groupBy)
-                if row[index] not in processedData:
-                    processedData[row[index]] = {}
-                for match in matches:
-                    key = match
-                    value = matches[match]["value"]
-                    if "convert" in matches[match]:
-                        processedData[row[index]][row[keys.index(key)]] = Convert(
-                            row[keys.index(value)], matches[match]["convert"])
-                    else:
-                        processedData[row[index]][row[keys.index(
-                            key)]] = row[keys.index(value)]
-
+            if len(matches) > 0:
+                for row in c:
+                    index = keys.index(groupBy)
+                    if row[index] not in processedData:
+                        processedData[row[index]] = {}
+                    for match in matches:
+                        key = match
+                        value = matches[match]["value"]
+                        if "convert" in matches[match]:
+                            processedData[row[index]][row[keys.index(key)]] = Convert(
+                                row[keys.index(value)], matches[match]["convert"])
+                        else:
+                            processedData[row[index]][row[keys.index(
+                                key)]] = row[keys.index(value)]
+            else:
+                for row in c:
+                    index = keys.index(groupBy)
+                    if row[index] not in processedData:
+                        processedData[row[index]] = {}
+                    for key in keys:
+                        if key != groupBy:
+                            processedData[row[index]
+                                          ][key] = row[keys.index(key)]
+            for c in root.find("Data").findall("Convert"):
+                for entry in processedData:
+                    processedData[entry][c.attrib["key"]] = Convert(
+                        processedData[entry][c.attrib["key"]], c.attrib["to"])
     representation = {}
     representation["Colors"] = {se.attrib["key"]: [float(t) / 255.0 for t in se.text.split(
         " ")] for se in root.find("Representation").findall("Color") if "key" in se.attrib}
     representation["Map"] = {m.attrib["key"]: m.attrib["on"] for m in root.find("Representation").findall(
         "Map") if "key" in m.attrib and "on" in m.attrib}
     representation["Values"] = {e: processedData[e] for e in processedData}
+    representation["Arrows"] = [(a.attrib["from"], a.attrib["to"]) for a in root.find(
+        "Representation").findall("Arrow") if "from" in a.attrib and "to" in a.attrib]
+    print(representation["Arrows"])
+    result["Init"] = root.find("Representation").attrib["value"]
     result["Data"] = processedData
     result["Representation"] = representation
 
@@ -346,6 +331,15 @@ def GetUnitNames(file: str) -> list[str]:
     return [i["properties"]["shapeName"] for i in j["features"]]
 
 
-a = GetMultiRelationalData("World Sheep Production", "tr")
-
-print(a["Representation"]["Values"])
+def AnalyzeXML(file: str, lang: str = None):
+    if not file.startswith("Relations/"):
+        file = "Relations/"+file
+    if not file.endswith(".xml"):
+        file += ".xml"
+    xml = ET.parse(open(file, encoding="utf-8"))
+    root = xml.getroot()
+    match root.tag:
+        case "Relation":
+            return GetRelationalData(root, lang)
+        case "MultiRelation":
+            return GetMultiRelationalData(root, lang)
