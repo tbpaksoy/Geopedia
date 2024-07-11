@@ -80,6 +80,54 @@
         <Arrow from="Türkiye" to="Rusya Federasyonu" />
         <Arrow from="Türkiye" to="İsviçre" />
         <Arrow from="Türkiye" to="Belçika" />
+        <Arrow from="Türkiye" to="Brezilya" />
+        <Arrow from="Türkiye" to="Meksika" />
+        <Arrow from="Türkiye" to="Vietnam" />
+        <Arrow from="Türkiye" to="Fas" />
+        <Arrow from="Türkiye" to="Avusturya" />
 
+        <LocalName key="Almanya" lang="en">Germany</LocalName>
+        <LocalName key="ABD" lang="en">USA</LocalName>
+        <LocalName key="Birleşik Krallık" lang="en">United Kingdom</LocalName>
+        <LocalName key="İtalya" lang="en">Italy</LocalName>
+        <LocalName key="Fransa" lang="en">France</LocalName>
+        <LocalName key="İspanya" lang="en">Spain</LocalName>
+        <LocalName key="Hollanda" lang="en">Netherlands</LocalName>
+        <LocalName key="Çin" lang="en">China</LocalName>
+        <LocalName key="Rusya Federasyonu" lang="en">Russian Federation</LocalName>
+        <LocalName key="İsviçre" lang="en">Switzerland</LocalName>
+        <LocalName key="Belçika" lang="en">Belgium</LocalName>
+        <LocalName key="Brezilya" lang="en">Brazil</LocalName>
+        <LocalName key="Meksika" lang="en">Mexico</LocalName>
+        <LocalName key="İsveç" lang="en">Sweden</LocalName>
+        <LocalName key="Fas" lang="en">Morocco</LocalName>
+        <LocalName key="Avusturya" lang="en">Austria</LocalName>
+        <LocalName key="Cezayir" lang="en">Algeria</LocalName>
+        <LocalName key="Yunanistan" lang="en">Greece</LocalName>
+        <LocalName key="Suudi Arabistan" lang="en">Saudi Arabia</LocalName>
+        <LocalName key="Mısır" lang="en">Egypt</LocalName>
+        <LocalName key="Arjantin" lang="en">Argentina</LocalName>
+
+        <LocalName key="Almanya" lang="de">Deutschland</LocalName>
+        <LocalName key="ABD" lang="de">USA</LocalName>
+        <LocalName key="Birleşik Krallık" lang="de">Vereinigtes Königreich</LocalName>
+        <LocalName key="İtalya" lang="de">Italien</LocalName>
+        <LocalName key="Fransa" lang="de">Frankreich</LocalName>
+        <LocalName key="İspanya" lang="de">Spanien</LocalName>
+        <LocalName key="Hollanda" lang="de">Niederlande</LocalName>
+        <LocalName key="Çin" lang="de">China</LocalName>
+        <LocalName key="Rusya Federasyonu" lang="de">Russische Föderation</LocalName>
+        <LocalName key="İsviçre" lang="de">Schweiz</LocalName>
+        <LocalName key="Belçika" lang="de">Belgien</LocalName>
+        <LocalName key="Brezilya" lang="de">Brasilien</LocalName>
+        <LocalName key="Meksika" lang="de">Mexiko</LocalName>
+        <LocalName key="İsveç" lang="de">Schweden</LocalName>
+        <LocalName key="Fas" lang="de">Marokko</LocalName>
+        <LocalName key="Avusturya" lang="de">Österreich</LocalName>
+        <LocalName key="Cezayir" lang="de">Algerien</LocalName>
+        <LocalName key="Yunanistan" lang="de">Griechenland</LocalName>
+        <LocalName key="Suudi Arabistan" lang="de">Saudi-Arabien</LocalName>
+        <LocalName key="Mısır" lang="de">Ägypten</LocalName>
+        <LocalName key="Arjantin" lang="de">Argentinien</LocalName>
     </Representation>
 </MultiRelation>

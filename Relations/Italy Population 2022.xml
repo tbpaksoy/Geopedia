@@ -22,5 +22,7 @@
         <Color key="r0.0">232 233 235</Color>
         <Color key="a1000000">100 141 229</Color>
         <Color key="r1.0">239 100 97</Color>
+        <Borders source="Italy ADM2.geojson" width="1" color="127 127 127" />
+        <Borders source="Italy ADM0.geojson" width="2.5" color="0 0 0" />
     </Representation>
 </Relation>

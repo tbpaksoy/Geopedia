@@ -3,6 +3,9 @@ import json
 import trimesh as tm
 import pyvista as pv
 
+# Build the administrative division model
+# İdari bölüm modelini oluştur
+
 
 def BuildADM(file: str, id: int | str | list | None = None) -> dict:
     if not file.endswith(".geojson"):
@@ -63,6 +66,9 @@ def BuildADM(file: str, id: int | str | list | None = None) -> dict:
                         polygons[key1][i] = polygons[key1][i].difference(
                             polygons[key2][j])
     return {key: [tm.creation.extrude_polygon(poly, 0.1) for poly in polygons[key]] for key in polygons.keys()}
+
+# Build the administrative division border
+# İdari bölüm sınırını oluştur
 
 
 def BuildADMBorders(file: str, id: int | str | list | None = None) -> dict:
@@ -151,6 +157,9 @@ def RepresentValueWithColor(meshes: dict, values: dict, interval: list = [[1.0, 
     # Temsili döndür
     return representation
 
+# Represent the values with color
+# Değerleri renk ile temsil et
+
 
 def RepresentValuesWithColors(meshes: dict, values: dict, colors: dict = {0.0: [1.0, 1.0, 1.0], 1.0: [0.0, 0.0, 0.0]}) -> dict:
 
@@ -160,6 +169,8 @@ def RepresentValuesWithColors(meshes: dict, values: dict, colors: dict = {0.0: [
     return {key: (meshes[key], temp[key])if key in meshes.keys() and key in temp.keys() else (meshes[key], temp[None]) for key in meshes.keys()}
 
 
+# Get color from the color ramp
+# Renk rampasından renk al
 def ColorRamp(values: dict, colors: dict) -> dict[str: list]:
     hasNa = False
     if "n/a" in colors:
@@ -210,6 +221,9 @@ def ColorRamp(values: dict, colors: dict) -> dict[str: list]:
                                for i in range(3)]
                 break
     return result
+
+# Get color from the color ramp
+# Renk rampasından renk al
 
 
 def ColorRampSample(colorRamp: dict[str: list], value: float) -> list:

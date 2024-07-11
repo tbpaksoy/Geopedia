@@ -1,0 +1,69 @@
+<Relation default="en">
+    <Name>
+        <Text language="en">
+            2023 Population of Spain
+        </Text>
+        <Text language="tr">
+            İspanya'nın 2023 Nüfusu
+        </Text>
+        <Text language="de">
+            die Bevölkerung 2023 von Spanien
+        </Text>
+    </Name>
+    <Description>
+        <Text language="en">
+            the Population of Spain by the provinces in 2023
+        </Text>
+        <Text language="tr">
+            İspanya'nın 2023 yılında illere göre nüfusu
+        </Text>
+        <Text language="de">
+            die Bevölkerung von Spanien nach den Provinzen im Jahr 2023
+        </Text>
+    </Description>
+    <Provider>
+        Instituto Nacional de Estadística
+    </Provider>
+    <Data source="Spain Population.csv" by="Comunidad Autónoma y Provincia">
+        <Key name="Comunidad Autónoma y Provincia">
+            05 Canarias:Canarias
+            19 Melilla:Ciudad Autónoma de Melilla
+            18 Ceuta:Ciudad Autónoma de Ceuta
+            17 Rioja, La:La Rioja
+            16 País Vasco:País Vasco/Euskadi
+            15 Navarra, Comunidad Foral de:Comunidad Foral de Navarra
+            14 Murcia, Región de:Región de Murcia
+            13 Madrid, Comunidad de:Comunidad de Madrid
+            12 Galicia:Galicia
+            11 Extremadura:Extremadura
+            10 Comunitat Valenciana:Comunitat Valenciana
+            09 Cataluña:Cataluña/Catalunya
+            08 Castilla - La Mancha:Castilla-La Mancha
+            07 Castilla y León:Castilla y León
+            06 Cantabria:Cantabria
+            04 Balears, Illes:Illes Balears
+            03 Asturias, Principado de:Principado de Asturias
+            02 Aragón:Aragón
+            01 Andalucía:Andalucía
+        </Key>
+        <Get key="Ambos sexos" convert="int" />
+        <Get key="Hombre" convert="int" />
+        <Get key="Mujer" convert="int" />
+        <Display key="Ambos sexos" lang="tr">Her İki Cinsiyet</Display>
+        <Display key="Ambos sexos" lang="en">Both Genders</Display>
+        <Display key="Ambos sexos" lang="de">Beide Geschlechter</Display>
+        <Display key="Hombre" lang="tr">Erkek</Display>
+        <Display key="Hombre" lang="en">Male</Display>
+        <Display key="Hombre" lang="de">Männlich</Display>
+        <Display key="Mujer" lang="tr">Kadın</Display>
+        <Display key="Mujer" lang="en">Female</Display>
+        <Display key="Mujer" lang="de">Weiblich</Display>
+    </Data>
+    <Representation value="Ambos sexos" map="Spain ADM1.geojson">
+        <Color key="r0.0">232 233 235</Color>
+        <Color key="a1000000">100 141 229</Color>
+        <Color key="r1.0">239 100 97</Color>
+        <Borders source="Spain ADM1.geojson" width="1" color="127 127 127" />
+        <Borders source="Spain ADM0.geojson" width="2.5" color="0 0 0" />
+    </Representation>
+</Relation>

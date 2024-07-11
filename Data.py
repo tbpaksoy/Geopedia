@@ -245,6 +245,18 @@ def GetRelationalData(root: ET.Element, lang: str = None) -> dict:
                 if key == wanted:
                     realData.append(processedData[entry][key])
 
+    for k in root.find("Data").findall("Key"):
+        if "name" not in k.attrib:
+            continue
+        if "from" in k.attrib and "to" in k.attrib:
+            pass
+        else:
+            for line in k.text.splitlines():
+                t = line.strip().split(":")
+                if len(t) == 2:
+                    if t[0] in processedData:
+                        processedData[t[1]] = processedData[t[0]]
+                        del processedData[t[0]]
     representation = {
         "Colors": {se.attrib["key"]: [float(t) / 255.0 for t in se.text.split(" ")] for se in root.find("Representation").findall("Color") if "key" in se.attrib},
         "Value": root.find("Representation").attrib["value"],
@@ -261,6 +273,9 @@ def GetRelationalData(root: ET.Element, lang: str = None) -> dict:
     # Filtrelenmiş veriyi sözlüğe ekle
     result["Data"] = processedData
     return result
+
+# To get the data from the .xml file
+# .xml dosyasından veri almak için
 
 
 def GetMultiRelationalData(root: ET.Element, lang: str = None) -> dict:
@@ -313,7 +328,8 @@ def GetMultiRelationalData(root: ET.Element, lang: str = None) -> dict:
     representation["Values"] = {e: processedData[e] for e in processedData}
     representation["Arrows"] = [(a.attrib["from"], a.attrib["to"]) for a in root.find(
         "Representation").findall("Arrow") if "from" in a.attrib and "to" in a.attrib]
-    print(representation["Arrows"])
+    representation["LocalNames"] = {ln.attrib["key"]: ln.text for ln in root.find("Representation").findall(
+        "LocalName") if "key" in ln.attrib and "lang" in ln.attrib and ln.attrib["lang"] == lang}
     result["Init"] = root.find("Representation").attrib["value"]
     result["Data"] = processedData
     result["Representation"] = representation
@@ -329,6 +345,9 @@ def GetUnitNames(file: str) -> list[str]:
         file += ".geojson"
     j = json.load(open("Countries\\"+file, encoding="utf-8"))
     return [i["properties"]["shapeName"] for i in j["features"]]
+
+# To analyze the .xml file
+# .xml dosyasını analiz etmek için
 
 
 def AnalyzeXML(file: str, lang: str = None):

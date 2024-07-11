@@ -109,6 +109,9 @@ match mode.lower():
         # Dosyaları al
         files = os.listdir("Relations")
 
+        files_listbox: int | str
+        selectedFiles_listbox: int | str
+
         window = dpg.add_window(width=400, height=800, pos=[
                                 0, 0], no_collapse=True, no_close=True, no_move=True)
 
@@ -117,20 +120,37 @@ match mode.lower():
             selectedFile = dpg.get_value(sender)
 
         def AddFile():
-            global selectedFiles
+            global selectedFiles, files_listbox
             if selectedFile not in selectedFiles:
                 selectedFiles.append(selectedFile)
-                dpg.add_text(default_value=selectedFile, parent=window)
+                files.remove(selectedFile)
+                dpg.configure_item(files_listbox, items=files)
+                dpg.configure_item(selectedFiles_listbox, items=selectedFiles)
+
+        def RemoveFile():
+            global selectedFiles, selectedFiles_listbox, files_listbox
+            item = dpg.get_value(selectedFiles_listbox)
+            selectedFiles.remove(item)
+            dpg.configure_item(selectedFiles_listbox, items=selectedFiles)
+            files.append(item)
+            files.sort()
+            dpg.configure_item(files_listbox, items=files)
 
         def SelectLang(sender):
             global lang
             lang = dpg.get_value(sender)
 
-        dpg.add_listbox(parent=window, items=files,
-                        callback=SelectFile)
+        files_listbox = dpg.add_listbox(parent=window, items=files,
+                                        callback=SelectFile, num_items=10)
 
         dpg.add_button(label="Add File",
                        callback=lambda: AddFile(), parent=window)
+
+        selectedFiles_listbox = dpg.add_listbox(
+            parent=window, items=selectedFiles)
+
+        dpg.add_button(label="Remove File",
+                       callback=lambda: RemoveFile(), parent=window)
 
         dpg.add_listbox(parent=window, items=[
                         "en", "tr", "de"], callback=SelectLang)
@@ -219,10 +239,9 @@ match mode.lower():
             else:
                 nameTextActor.SetInput(adm1)
             valueText = ""
-            if adm1 not in displayValues.keys():
-                return
-            for key in data[adm1].keys():
-                valueText += key + " : " + str(data[adm1][key]) + "\n"
+            if adm1 in displayValues.keys():
+                for key in data[adm1].keys():
+                    valueText += key + " : " + str(data[adm1][key]) + "\n"
             valueTextActor.SetInput(valueText)
 
         interactor.AddObserver(vtk.vtkCommand.MouseMoveEvent, Pick)
@@ -343,6 +362,7 @@ match mode.lower():
                         for mesh in meshesAndColors[key][0]:
                             actor = plotter.add_mesh(
                                 mesh, color=meshesAndColors[key][1])
+
                             subactors.append(actor)
                         actors[key] = subactors
                 case "MultiRelational":
@@ -362,14 +382,17 @@ match mode.lower():
                     centers = {}
                     meshesAndColors = Representation.RepresentValuesWithColors(
                         meshes, {key: _data[key][initKey] for key in _data if initKey in _data[key]}, representation["Colors"])
-                    for mc in meshesAndColors:
+                    for key in meshesAndColors:
+                        subactors = []
                         _temp = []
-                        for mesh in meshesAndColors[mc]:
-                            plotter.add_mesh(
-                                meshesAndColors[mc][0], color=meshesAndColors[mc][1])
-                            for v in meshesAndColors[mc][0].vertices:
+                        for mesh in meshesAndColors[key]:
+                            actor = plotter.add_mesh(
+                                meshesAndColors[key][0], color=meshesAndColors[key][1])
+                            subactors.append(actor)
+                            for v in meshesAndColors[key][0].vertices:
                                 _temp.append(v)
-                            centers[mc] = list(sum(_temp) / len(_temp))
+                            centers[key] = list(sum(_temp) / len(_temp))
+                        actors[key] = subactors
                     for c in centers.values():
                         sphere = tm.creation.icosphere(
                             radius=0.15)
@@ -377,6 +400,8 @@ match mode.lower():
                         sphere.apply_translation([0, 0, 0.4])
                         plotter.add_mesh(sphere, color=[0, 0, 0])
 
+                    for key in representation["LocalNames"]:
+                        localNames[key] = representation["LocalNames"][key]
                     arrows: list = representation["Arrows"]
                     for arrow in arrows:
                         start, end = copy.deepcopy(centers[arrow[0]]), copy.deepcopy(
