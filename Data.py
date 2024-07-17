@@ -2,6 +2,10 @@ import xml.etree.ElementTree as ET
 import json
 import csv
 import math
+from Graph import LinkFiles
+
+currentXML: str = ""
+
 
 # To convert values to the desired type
 # Değerleri istenilen tipte çevirmek için
@@ -121,6 +125,10 @@ def GetRelationalData(root: ET.Element, lang: str = None) -> dict:
             })
 
     sourceFile = "Data\\"+root.find("Data").attrib["source"]
+
+    global LinkFiles, currentXML
+
+    LinkFiles(currentXML, sourceFile)
 
     # Get the excluders and includers
     # Hariç tutucuları ve dahil edicileri al
@@ -267,6 +275,8 @@ def GetRelationalData(root: ET.Element, lang: str = None) -> dict:
         "LocalNames": {ln.attrib["key"]: ln.text for ln in root.find("Representation").findall("LocalName") if "key" in ln.attrib and "lang" in ln.attrib and ln.attrib["lang"] == lang}
     }
 
+    LinkFiles(currentXML, representation["Map"])
+
     result["Representation"] = representation
 
     # Add the filtered data to the dictionary
@@ -357,6 +367,8 @@ def AnalyzeXML(file: str, lang: str = None):
         file += ".xml"
     xml = ET.parse(open(file, encoding="utf-8"))
     root = xml.getroot()
+    global currentXML
+    currentXML = file
     match root.tag:
         case "Relation":
             return GetRelationalData(root, lang)
